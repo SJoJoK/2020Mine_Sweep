@@ -1,11 +1,14 @@
 #ifndef MSVIEWMODELSINK_H
 #define MSVIEWMODELSINK_H
-
-
-class MSViewModelSink
+#include "../../common/etlbase.h"
+class MSViewModel;
+class MSViewModelSink : public IPropertyNotification
 {
 public:
-    MSViewModelSink();
+    MSViewModelSink(MSViewModel* p) throw();
+    virtual void OnPropertyChanged(const std::string &str);
+private:
+    MSViewModel* m_pVM;
 };
 
 #endif // MSVIEWMODELSINK_H
