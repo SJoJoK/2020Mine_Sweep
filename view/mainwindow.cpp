@@ -14,15 +14,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::paint_restart_num(int restart_num)
+void MainWindow::paint_restart_num()
 {
-    ui->RE_label->setText(QString::number(restart_num));
+    ui->RE_label->setText(QString::number(m_pVM->get_restart_num()));
 }
 void MainWindow::set_restart_command(const std::shared_ptr<ICommandBase> &cmd) throw()
 {
      m_cmd_restart = cmd;
 }
 
+void MainWindow::set_restart_num(const int num) throw()
+{
+   ui->RE_label->setText(QString::number(num));
+}
 
 std::shared_ptr<IPropertyNotification> MainWindow::get_propertty_sink() throw()
 {
@@ -36,7 +40,7 @@ std::shared_ptr<ICommandNotification> MainWindow::get_command_sink() throw()
 
 void MainWindow :: paintEvent(QPaintEvent * event)
 {
-    //
+    paint_restart_num();
 }
 void MainWindow ::mousePressEvent(QMouseEvent * event)
 {

@@ -7,6 +7,7 @@
 #include"../common/etlbase.h"
 #include"sink/mainwindowcommandsink.h"
 #include"sink/mainwindowpropertysink.h"
+#include"../viewmodel/msviewmodel.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -19,9 +20,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void set_restart_command(const std::shared_ptr<ICommandBase>& cmd) throw();
+    void set_restart_num(const int num) throw();
     std::shared_ptr<IPropertyNotification> get_propertty_sink() throw();
     std::shared_ptr<ICommandNotification> get_command_sink() throw();
-    void paint_restart_num(int restart_num);
+    std::shared_ptr<MSViewModel> m_pVM;
+    void paint_restart_num();
 protected:
     virtual void paintEvent(QPaintEvent * event);
     virtual void mousePressEvent(QMouseEvent * event);
