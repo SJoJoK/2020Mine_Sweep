@@ -93,7 +93,7 @@ void MainWindow ::mousePressEvent(QMouseEvent * event)
    if(event->buttons()==(Qt::LeftButton))
    {
        qDebug()<<QDir::currentPath();
-       qDebug()<<"点击重启";
+       qDebug()<<"CLICK RESTART";
        std::any param("restart");
        m_cmd_restart->SetParameter(param);
        m_cmd_restart->Exec();
