@@ -4,6 +4,7 @@
 #include <QPaintEvent>
 #include <QMainWindow>
 #include <QDebug>
+#include <QPainter>
 #include"../common/etlbase.h"
 #include"sink/mainwindowcommandsink.h"
 #include"sink/mainwindowpropertysink.h"
@@ -25,6 +26,7 @@ public:
     std::shared_ptr<ICommandNotification> get_command_sink() throw();
     std::shared_ptr<MSViewModel> m_pVM;
     void paint_restart_num();
+    void painttitle(QPainter* painter);
 protected:
     virtual void paintEvent(QPaintEvent * event);
     virtual void mousePressEvent(QMouseEvent * event);
