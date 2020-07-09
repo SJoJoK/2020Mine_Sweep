@@ -4,6 +4,7 @@
 #include <QPaintEvent>
 #include <QMainWindow>
 #include <QDebug>
+#include <QPainter>
 #include"../common/etlbase.h"
 #include"sink/mainwindowcommandsink.h"
 #include"sink/mainwindowpropertysink.h"

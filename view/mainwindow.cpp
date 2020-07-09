@@ -1,4 +1,4 @@
-﻿#include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -40,7 +40,15 @@ std::shared_ptr<ICommandNotification> MainWindow::get_command_sink() throw()
 
 void MainWindow :: paintEvent(QPaintEvent * event)
 {
-    paint_restart_num();
+    //paint_restart_num();
+    QPainter painter(this);
+    painttitle(&painter);
+}
+
+void MainWindow :: painttitle(QPainter  * painter)
+{
+    QPixmap restart("C:/Users/tim/Desktop/restart.jpg");
+    painter->drawPixmap(100,100,restart,0,0,1000,1000);
 }
 void MainWindow ::mousePressEvent(QMouseEvent * event)
 {
