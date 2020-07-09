@@ -22,6 +22,8 @@ SOURCES += \
     main.cpp \
     model/msdatamodel.cpp \
     view/mainwindow.cpp \
+    view/sink/mainwindowcommandsink.cpp \
+    view/sink/mainwindowpropertysink.cpp \
     viewmodel/commands/restartcommand.cpp \
     viewmodel/msviewmodel.cpp \
     viewmodel/sinks/msviewmodelsink.cpp
@@ -33,6 +35,8 @@ HEADERS += \
     common/square.h \
     model/msdatamodel.h \
     view/mainwindow.h \
+    view/sink/mainwindowcommandsink.h \
+    view/sink/mainwindowpropertysink.h \
     viewmodel/commands/restartcommand.h \
     viewmodel/msviewmodel.h \
     viewmodel/sinks/msviewmodelsink.h
