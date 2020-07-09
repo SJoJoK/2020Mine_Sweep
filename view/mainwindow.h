@@ -1,10 +1,11 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QMainWindow>
 #include <QDebug>
 #include <QPainter>
+#include <QDir>
 #include"../common/etlbase.h"
 #include"sink/mainwindowcommandsink.h"
 #include"sink/mainwindowpropertysink.h"

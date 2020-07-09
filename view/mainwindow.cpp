@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -83,7 +83,7 @@ void MainWindow :: paintEvent(QPaintEvent * event)
 
 void MainWindow :: painttitle(QPainter  * painter)
 {
-    QPixmap restart("C:/Users/tim/Desktop/restart.jpg");
+    QPixmap restart("smile.bmp");
     painter->drawPixmap(100,100,restart,0,0,1000,1000);
 }
 void MainWindow ::mousePressEvent(QMouseEvent * event)
@@ -92,6 +92,7 @@ void MainWindow ::mousePressEvent(QMouseEvent * event)
    click_y=event->y();
    if(event->buttons()==(Qt::LeftButton))
    {
+       qDebug()<<QDir::currentPath();
        qDebug()<<"点击重启";
        std::any param("restart");
        m_cmd_restart->SetParameter(param);
