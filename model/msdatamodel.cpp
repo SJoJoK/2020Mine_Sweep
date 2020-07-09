@@ -1,6 +1,6 @@
 #include "msdatamodel.h"
 
-MSDataModel::MSDataModel():restart_num(0),b(std::make_shared<Block>(5,5,1))
+MSDataModel::MSDataModel():restart_num(0),b(std::make_shared<Block>(1,1,1))
 {
 
 }
@@ -13,10 +13,11 @@ std::shared_ptr<Block> MSDataModel :: get_block() throw()
 {
     return b;
 }
-bool MSDataModel :: restart()
+bool MSDataModel :: restart(int row, int col, int boom_num)
 {
-    restart_num++;
-    b = std::make_shared<Block>(5,5,1);
+    restart_num = 1;//好像没啥用？
+    b = std::make_shared<Block>(row,col,boom_num);
+    qDebug()<<b->get_row()<<b->get_col()<<b->get_boom_num();
     Fire_OnPropertyChanged("restart_num");
     return true;
 }

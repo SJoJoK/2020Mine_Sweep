@@ -8,6 +8,6 @@ void MainWindowCommandSink::OnCommandComplete(const std::string& str, bool bOK)
 {
     if( str == "restart" )
     {
-         //QMessageBox::information(NULL,"恭喜","成功+1");
+         QMessageBox::information(NULL,"恭喜","成功+1");
     }
 }

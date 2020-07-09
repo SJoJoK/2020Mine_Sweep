@@ -1,15 +1,15 @@
-﻿#ifndef MAINWINDOW_H
+#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QMainWindow>
 #include <QDebug>
-#include <QPainter>
-#include <QDir>
 #include"../common/etlbase.h"
 #include"sink/mainwindowcommandsink.h"
 #include"sink/mainwindowpropertysink.h"
 #include"../viewmodel/msviewmodel.h"
+#include"common/parameter.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -27,7 +27,6 @@ public:
     std::shared_ptr<ICommandNotification> get_command_sink() throw();
     std::shared_ptr<MSViewModel> m_pVM;
     void paint_restart_num();
-    void painttitle(QPainter* painter);
 protected:
     virtual void paintEvent(QPaintEvent * event);
     virtual void mousePressEvent(QMouseEvent * event);

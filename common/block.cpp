@@ -1,8 +1,8 @@
-#include "block.h"
+﻿#include "block.h"
 
 Block::Block(int row, int col, int boom_num)
 {
-    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));//随机数种子
+    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
     p=new Square*[row];
     for (int i = 0; i < row ; i++)
     {

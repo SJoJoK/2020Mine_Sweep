@@ -30,7 +30,7 @@ MSDataModel& MSViewModel::get_model() throw()
 {
     return *m_MSModel;
 }
-bool MSViewModel::restart()
+bool MSViewModel::restart(int row, int col, int boom_num)
 {
-    return m_MSModel->restart();
+    return m_MSModel->restart(row,col,boom_num);
 }

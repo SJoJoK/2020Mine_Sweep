@@ -4,6 +4,8 @@
 #include"./sinks/msviewmodelsink.h"
 #include"../model/msdatamodel.h"
 #include"./commands/restartcommand.h"
+#include"../common/parameter.h"
+
 class MSViewModel : public Proxy_CommandNotification<MSViewModel>, public Proxy_PropertyNotification<MSViewModel>
 {
 public:
@@ -15,7 +17,7 @@ public:
 
     int get_restart_num() throw();
     void set_restart_num(int num);
-    bool restart();
+    bool restart(int row, int col, int boom_num);
 private:
     std::shared_ptr<MSDataModel> m_MSModel;
     int m_restart_num;
