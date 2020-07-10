@@ -25,6 +25,7 @@ SOURCES += \
     view/mainwindow.cpp \
     view/sink/mainwindowcommandsink.cpp \
     view/sink/mainwindowpropertysink.cpp \
+    viewmodel/commands/leftblock.cpp \
     viewmodel/commands/restartcommand.cpp \
     viewmodel/msviewmodel.cpp \
     viewmodel/sinks/msviewmodelsink.cpp
@@ -39,6 +40,7 @@ HEADERS += \
     view/mainwindow.h \
     view/sink/mainwindowcommandsink.h \
     view/sink/mainwindowpropertysink.h \
+    viewmodel/commands/leftblock.h \
     viewmodel/commands/restartcommand.h \
     viewmodel/msviewmodel.h \
     viewmodel/sinks/msviewmodelsink.h
