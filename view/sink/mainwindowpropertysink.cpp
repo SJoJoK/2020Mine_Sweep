@@ -10,4 +10,8 @@ void MainWindowPropertySink::OnPropertyChanged(const std::string& str)
     {
         m_pW->update();
     }
+    if(str=="block")
+    {
+        m_pW->update();
+    }
 }

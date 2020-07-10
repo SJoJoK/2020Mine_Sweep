@@ -19,6 +19,10 @@ bool Square::get_mark()
 {
     return is_mark;
 }
+bool Square::get_show()
+{
+    return is_show;
+}
 void Square:: set_boom(bool x)
 {
     is_boom=x;
@@ -30,6 +34,10 @@ void Square:: set_flag(bool x)
 void Square:: set_mark(bool x)
 {
     is_mark=x;
+}
+void Square::set_show(bool x)
+{
+    is_show=x;
 }
 int Square:: get_sur()
 {

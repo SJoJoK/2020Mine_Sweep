@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     app/msapp.cpp \
     common/block.cpp \
+    common/parameter.cpp \
     common/square.cpp \
     main.cpp \
     model/msdatamodel.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     app/msapp.h \
     common/block.h \
     common/etlbase.h \
+    common/parameter.h \
     common/square.h \
     model/msdatamodel.h \
     view/mainwindow.h \
