@@ -1,4 +1,4 @@
-#include "msviewmodel.h"
+﻿#include "msviewmodel.h"
 
 MSViewModel::MSViewModel() : m_restart_num(0),
                                 m_cmd_restart(std::make_shared<RestartCommand>(this)),
@@ -25,7 +25,10 @@ std::shared_ptr<ICommandBase> MSViewModel::get_restart_command() throw()
 {
     return std::static_pointer_cast<ICommandBase>(m_cmd_restart);
 }
-
+std::shared_ptr<Block> MSViewModel ::get_block()
+{
+    return m_MSModel->get_block();
+}
 MSDataModel& MSViewModel::get_model() throw()
 {
     return *m_MSModel;

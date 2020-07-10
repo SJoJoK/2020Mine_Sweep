@@ -1,4 +1,4 @@
-#include "msapp.h"
+﻿#include "msapp.h"
 MSApp::MSApp()
 {
 
@@ -19,6 +19,7 @@ bool MSApp::Init(MainWindow& w)
     w.m_pVM=m_spViewModel;
     // properties
     w.set_restart_num(m_spViewModel->get_restart_num());
+    w.set_block(m_spViewModel->get_block());
     // commands
     w.set_restart_command(m_spViewModel->get_restart_command());
     // notifications
@@ -26,5 +27,6 @@ bool MSApp::Init(MainWindow& w)
     m_spViewModel->AddCommandNotification(w.get_command_sink());
     w.setWindowTitle("Mine Sweeping");
     w.show();
+    w.update();
     return true;
 }

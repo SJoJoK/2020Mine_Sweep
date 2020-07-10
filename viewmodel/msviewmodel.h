@@ -1,4 +1,4 @@
-#ifndef MSVIEWMODEL_H
+﻿#ifndef MSVIEWMODEL_H
 #define MSVIEWMODEL_H
 #include"../common/etlbase.h"
 #include"./sinks/msviewmodelsink.h"
@@ -17,12 +17,14 @@ public:
 
     int get_restart_num() throw();
     void set_restart_num(int num);
+    std::shared_ptr<Block> get_block();
     bool restart(int row, int col, int boom_num);
+
 private:
-    std::shared_ptr<MSDataModel> m_MSModel;
-    int m_restart_num;
+    std::shared_ptr<MSDataModel> m_MSModel;    
     std::shared_ptr<RestartCommand> m_cmd_restart;
     std::shared_ptr<MSViewModelSink> m_sink;
+    int m_restart_num;
 
 };
 

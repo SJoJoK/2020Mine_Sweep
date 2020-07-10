@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -47,7 +47,7 @@ void MainWindow :: paintEvent(QPaintEvent * event)
 
 void MainWindow :: painttitle(QPainter  * painter)
 {
-    QPixmap restart("C:/Users/tim/Desktop/restart.jpg");
+    QPixmap restart("F:/Homework/ShortSemester2/build-Mine_sweeping-Desktop_Qt_5_14_2_MSVC2017_64bit-Debug/smile.bmp");
     painter->drawPixmap(100,100,restart,0,0,1000,1000);
 }
 void MainWindow ::mousePressEvent(QMouseEvent * event)
@@ -67,5 +67,10 @@ void MainWindow ::mousePressEvent(QMouseEvent * event)
        //update();
    }
 
+}
+
+void MainWindow ::set_block(const std:: shared_ptr<Block> b)
+{
+    this->B=b;
 }
 
