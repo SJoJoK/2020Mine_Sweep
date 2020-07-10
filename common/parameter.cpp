@@ -37,36 +37,31 @@ BlockParameter::BlockParameter(BlockParameter&& src){
     boom_num = static_cast<int&&>(src.boom_num);
 }
 
-//ccx 7.10
-PositionParameter::PositionParameter(int a, int b)
-{
-    this->x_pos = a;
-    this->y_pos = b;
+PosParameter::PosParameter(int x,int y){
+    this->i=x;
+    this->j=y;
 }
-PositionParameter& PositionParameter::operator=(const PositionParameter& src)
-{
+PosParameter& PosParameter::operator=(const PosParameter &src){
     if( this != &src ) {
-        x_pos = src.x_pos;
-        y_pos = src.y_pos;
+        i = src.i;
+        j = src.j;
     }
     return *this;
 }
-
-PositionParameter& PositionParameter::operator=(PositionParameter&& src)
-{
+PosParameter& PosParameter::operator=(PosParameter &&src){
     if( this != &src ) {
-        x_pos = src.x_pos;
-        y_pos = src.y_pos;
+        i = src.i;
+        j = src.j;
     }
     return *this;
 }
-PositionParameter::PositionParameter() throw(){
+PosParameter::PosParameter() throw(){
 
 }
-PositionParameter::PositionParameter(const PositionParameter& src):x_pos(src.x_pos), y_pos(src.y_pos)
-{
+PosParameter::PosParameter(const PosParameter& src):i(src.i),j(src.j){
+
 }
-PositionParameter::PositionParameter(PositionParameter&& src){
-    x_pos = static_cast<int&&>(src.x_pos);
-    y_pos = static_cast<int&&>(src.y_pos);
+PosParameter::PosParameter(PosParameter&& src){
+    i = static_cast<int&&>(src.i);
+    j = static_cast<int&&>(src.j);
 }

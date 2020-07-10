@@ -35,7 +35,7 @@ void Square:: set_mark(bool x)
 {
     is_mark=x;
 }
-void Square:: set_show(bool x)
+void Square::set_show(bool x)
 {
     is_show=x;
 }

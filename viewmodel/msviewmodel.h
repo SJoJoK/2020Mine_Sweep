@@ -4,7 +4,10 @@
 #include"./sinks/msviewmodelsink.h"
 #include"../model/msdatamodel.h"
 #include"./commands/restartcommand.h"
+<<<<<<< HEAD
 #include"commands/leftblock.h"
+=======
+>>>>>>> view
 #include"../common/parameter.h"
 
 class MSViewModel : public Proxy_CommandNotification<MSViewModel>, public Proxy_PropertyNotification<MSViewModel>
