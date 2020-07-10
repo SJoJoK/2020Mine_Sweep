@@ -88,8 +88,4 @@ void MainWindow ::set_block(const std:: shared_ptr<Block> b)
     this->B=b;
 }
 
-void MainWindow ::set_block(const std:: shared_ptr<Block> b)
-{
-    this->B=b;
-}
 

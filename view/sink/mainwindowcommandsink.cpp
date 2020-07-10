@@ -1,4 +1,4 @@
-#include "mainwindowcommandsink.h"
+﻿#include "mainwindowcommandsink.h"
 #include "../mainwindow.h"
 MainWindowCommandSink::MainWindowCommandSink(MainWindow* pW) throw() : m_pW(pW)
 {

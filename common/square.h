@@ -16,6 +16,9 @@ public:
     void set_show(bool x);//ccx 7.10
     int get_sur();
     void set_sur(int sur);
+    //ccx 10.7
+    int visit = 0;//has been visited during bset_show session or not
+
 private:
     bool is_boom;
     bool is_flag;

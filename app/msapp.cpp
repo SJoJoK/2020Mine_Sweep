@@ -18,7 +18,6 @@ bool MSApp::Init(MainWindow& w)
     //binding
     w.m_pVM=m_spViewModel;
     // properties
-    w.set_restart_num(m_spViewModel->get_restart_num());
     w.set_block(m_spViewModel->get_block());
     // commands
     w.set_restart_command(m_spViewModel->get_restart_command());

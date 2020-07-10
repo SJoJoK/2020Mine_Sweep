@@ -87,3 +87,35 @@ void Block::change_time(int d_time)
 {
     this->time += d_time;
 }
+
+//recursively block set show (when sur_boom == 0)
+void Block::bset_show(int x, int y){
+    if(this->p[x][y].visit==1) return;
+    this->p[x][y].set_show(1);
+    this->p[x][y].visit = 1;
+    qDebug()<<"set1 success";
+    //3*3 traversal
+    for(int blockRow = x-1; blockRow <= x+1; blockRow++){
+        for(int blockCol = y-1; blockCol <=y+1; blockCol++){
+            //edge square
+            if(blockRow<0||blockCol<0||blockRow>=this->get_row()||blockCol>=this->get_col())
+               continue;
+            //if sur==0, continue executing
+            if(this->p[blockRow][blockCol].get_sur()==0 && this->p[blockRow][blockCol].visit==0){
+                qDebug()<<"recur";
+                bset_show(blockRow,blockCol);
+            }
+        }
+    }
+}
+
+void Block::reset_visit(int x, int y){
+    for(int blockRow = x-1; blockRow <= x+1; blockRow++){
+        for(int blockCol = y-1; blockCol <=y+1; blockCol++){
+            //edge square
+            if(blockRow<0||blockCol<0||blockRow>=this->get_row()||blockCol>=this->get_col())
+               continue;
+            this->p[blockRow][blockCol].visit= 0;
+        }
+    }
+}

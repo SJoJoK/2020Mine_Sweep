@@ -1,6 +1,6 @@
-#include "msdatamodel.h"
+﻿#include "msdatamodel.h"
 
-MSDataModel::MSDataModel():restart_num(0),b(std::make_shared<Block>(5,5,1))
+MSDataModel::MSDataModel():restart_num(0),b(std::make_shared<Block>(7,7,1))
 {
 
 }
@@ -23,10 +23,11 @@ bool MSDataModel :: restart(int row, int col, int boom_num)
 }
 bool MSDataModel::leftblock(int x_pos, int y_pos){
     //change p[x_pos][y_pos].is_show
-
-    b->p[x_pos][y_pos].set_show(1);
+    //b->p[x_pos][y_pos].set_show(1);
+    b->bset_show(x_pos, y_pos);
+    b->reset_visit(x_pos, y_pos);
     qDebug()<<x_pos<<y_pos<<b->p[x_pos][y_pos].get_show()<<"setsquaresuccess";
 
-    Fire_OnPropertyChanged("leftblockclk");
+    Fire_OnPropertyChanged("block");
     return true;
 }

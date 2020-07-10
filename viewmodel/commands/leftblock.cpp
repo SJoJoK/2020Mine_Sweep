@@ -1,4 +1,4 @@
-#include "leftblock.h"
+﻿#include "leftblock.h"
 #include "../msviewmodel.h"
 //ccx 7.10
 LeftBlockCommand::LeftBlockCommand(MSViewModel* p) throw(): m_pVM(p),m_lparam(3,3)
@@ -8,8 +8,8 @@ LeftBlockCommand::LeftBlockCommand(MSViewModel* p) throw(): m_pVM(p),m_lparam(3,
 
 void LeftBlockCommand::SetParameter(const std::any& param)
 {
-    //m_param = std::any_cast<BlockParameter>(lparam);
-    //qDebug()<<"setpara";
+    m_lparam = std::any_cast<PositionParameter>(param);
+    qDebug()<<"setpara";
 }
 
 void LeftBlockCommand::Exec()

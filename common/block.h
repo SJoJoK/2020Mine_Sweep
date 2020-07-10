@@ -3,6 +3,7 @@
 #include "./square.h"
 #include <QtMath>
 #include <QTime>
+#include <qdebug.h>
 class Block
 {
 public:
@@ -18,6 +19,10 @@ public:
     void change_flag_num(int d_num);
     void set_time(int time);
     void change_time(int d_time);
+    //ccx 7.10
+    void bset_show(int x, int y);
+    void reset_visit(int x, int y);
+
     Square **p;
 private:
     int row,col,boom_num;
