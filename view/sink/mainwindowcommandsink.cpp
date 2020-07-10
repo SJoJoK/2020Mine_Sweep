@@ -10,4 +10,8 @@ void MainWindowCommandSink::OnCommandComplete(const std::string& str, bool bOK)
     {
          QMessageBox::information(NULL,"恭喜","成功+1");
     }
+    if( str == "leftblockclk" )
+    {
+        QMessageBox::information(NULL,"恭喜","成功dianji");
+    }
 }

@@ -23,10 +23,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void set_restart_command(const std::shared_ptr<ICommandBase>& cmd) throw();
+    void set_leftblock_command(const std::shared_ptr<ICommandBase>& cmd) throw();
+    void set_restart_num(const int num) throw();
     void set_block(const std:: shared_ptr<Block> b);
     std::shared_ptr<IPropertyNotification> get_propertty_sink() throw();
     std::shared_ptr<ICommandNotification> get_command_sink() throw();
     std::shared_ptr<MSViewModel> m_pVM;
+    void paint_restart_num();
     void painttitle(QPainter  * painter);
 protected:
     virtual void paintEvent(QPaintEvent * event);
@@ -35,6 +38,7 @@ private:
     Ui::MainWindow *ui;
     int click_x,click_y;
     std::shared_ptr<ICommandBase> m_cmd_restart;
+    std::shared_ptr<ICommandBase> m_cmd_left;//ccx 7.10
     std::shared_ptr<MainWindowPropertySink> m_sink_property;
     std::shared_ptr<MainWindowCommandSink> m_sink_command;
     std::shared_ptr<Block> B;

@@ -18,4 +18,19 @@ public:
     int boom_num;
 };
 
+//ccx 7.10
+class PositionParameter{
+public:
+    PositionParameter() throw();
+    PositionParameter(const PositionParameter& src);
+    PositionParameter(PositionParameter&& src);
+
+    PositionParameter(int a, int b);
+    PositionParameter& operator=(const PositionParameter& src);
+    PositionParameter& operator=(PositionParameter&& src);
+public:
+    int x_pos;
+    int y_pos;
+};
+
 #endif // PARAMETER_H
