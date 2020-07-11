@@ -31,6 +31,7 @@ bool MSApp::Init(MainWindow& w)
     w.setMinimumSize(LENGTH,HEIGHT);
     w.setMaximumSize(LENGTH*2,HEIGHT*2);
     w.resize(LENGTH,HEIGHT);*/
+    w.init();
     w.show();
     return true;
 }

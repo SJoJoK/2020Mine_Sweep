@@ -32,6 +32,7 @@ public:
     void paint_restart_num();
     void paint_title(QPainter  * painter);
     void paint_boom(QPainter * painter);
+    void init();
 protected:
     virtual void paintEvent(QPaintEvent * event);
     virtual void mousePressEvent(QMouseEvent * event);

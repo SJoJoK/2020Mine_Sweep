@@ -14,4 +14,8 @@ void MainWindowCommandSink::OnCommandComplete(const std::string& str, bool bOK)
     {
         //
     }
+    if( str == "rightclockclk" )
+    {
+        //
+    }
 }

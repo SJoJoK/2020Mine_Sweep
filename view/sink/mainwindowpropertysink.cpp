@@ -10,8 +10,18 @@ void MainWindowPropertySink::OnPropertyChanged(const std::string& str)
     {
         m_pW->update();
     }
-    if(str=="block")
+    if( str == "block" )
     {
+        m_pW->update();
+    }
+    if( str == "win" )
+    {
+        QMessageBox::information(NULL,"提示","you win!");
+        m_pW->update();
+    }
+    if( str == "lose")
+    {
+        QMessageBox::information(NULL,"提示","you lose!");
         m_pW->update();
     }
 }
