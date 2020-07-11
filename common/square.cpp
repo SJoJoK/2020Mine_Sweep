@@ -1,10 +1,12 @@
-#include "square.h"
+﻿#include "square.h"
 
 Square::Square()
 {
     is_boom = false;
     is_flag = false;
     is_mark = false;
+    is_show = false;
+    visit=0;
     sur_boom = 0;
 }
 bool Square::get_boom()

@@ -1,6 +1,6 @@
 ﻿#ifndef SQUARE_H
 #define SQUARE_H
-
+#include<QString>
 
 class Square
 {
@@ -18,6 +18,21 @@ public:
     void set_sur(int sur);
     //ccx 10.7
     int visit = 0;//has been visited during bset_show session or not
+    QString show_info()
+    {
+        QString x;
+        x+="is_boom:";
+        x+=QString::number(is_boom);
+        x+=",is_flag:";
+        x+=QString::number(is_flag);
+        x+=",is_mark:";
+        x+=QString::number(is_mark);
+        x+=",is_show:";
+        x+=QString::number(is_show);
+        x+=",sur_boom:";
+        x+=QString::number(sur_boom);
+        return x;
+    }
 
 private:
     bool is_boom;

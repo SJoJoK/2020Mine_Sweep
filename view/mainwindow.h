@@ -39,7 +39,7 @@ private:
     Ui::MainWindow *ui;
     int click_x,click_y;
     std::shared_ptr<ICommandBase> m_cmd_restart;
-    std::shared_ptr<ICommandBase> m_cmd_left_click;
+    std::shared_ptr<ICommandBase> m_cmd_left;
     std::shared_ptr<MainWindowPropertySink> m_sink_property;
     std::shared_ptr<MainWindowCommandSink> m_sink_command;
     std::shared_ptr<Block> B;

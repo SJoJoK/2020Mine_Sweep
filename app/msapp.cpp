@@ -26,7 +26,11 @@ bool MSApp::Init(MainWindow& w)
     m_spViewModel->AddPropertyNotification(w.get_propertty_sink());
     m_spViewModel->AddCommandNotification(w.get_command_sink());
     w.setWindowTitle("Mine Sweeping");
+    /*int LENGTH=w.m_pVM->get_block()->get_col()*21;
+    int HEIGHT=w.m_pVM->get_block()->get_row()*21+63;
+    w.setMinimumSize(LENGTH,HEIGHT);
+    w.setMaximumSize(LENGTH*2,HEIGHT*2);
+    w.resize(LENGTH,HEIGHT);*/
     w.show();
-    w.update();
     return true;
 }

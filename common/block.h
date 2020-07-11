@@ -14,7 +14,9 @@ public:
     int get_boom_num();
     int get_flag_num();
     int get_time();
-
+	bool get_play();
+	bool get_win();
+	bool get_lose();
     void set_flag_num(int num);
     void change_flag_num(int d_num);
     void set_time(int time);
@@ -22,11 +24,13 @@ public:
     //ccx 7.10
     void bset_show(int x, int y);
     void reset_visit(int x, int y);
-
     Square **p;
 private:
     int row,col,boom_num;
     int time,flag;
+	bool is_play;
+	bool is_win;
+	bool is_lose;
 
 };
 

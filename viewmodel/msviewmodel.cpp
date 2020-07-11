@@ -49,6 +49,3 @@ bool MSViewModel::leftblock(int x_pos, int y_pos)
 {
     return m_MSModel->leftblock(x_pos, y_pos);
 }
-{
-    return m_MSModel->restart(row,col,boom_num);
-}

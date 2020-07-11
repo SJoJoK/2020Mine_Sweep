@@ -23,14 +23,16 @@ Block::Block(int row, int col, int boom_num)
     }
     for (int i = 0; i < row ; i++)
     {
-        int sur=0;
         for (int j = 0; j < col ; j++)
         {
+			int sur = 0;
+			if (p[i][j].get_boom() == true) continue;
             for (int tmp_row = i-1; tmp_row <= i+1; tmp_row++)
             {
+				if (tmp_row < 0 || tmp_row >= row ) continue;
                 for (int tmp_col = j-1; tmp_col <= j+1; tmp_col++)
                 {
-                    if(tmp_row<0||tmp_row>=row||tmp_col<0||tmp_col>=0) continue;
+					if (tmp_col < 0 || tmp_col >= col || ((tmp_row == i) && (tmp_col == j))) continue;
                     if(p[tmp_row][tmp_col].get_boom()==true) sur++;
                 }
             }
@@ -42,6 +44,9 @@ Block::Block(int row, int col, int boom_num)
     this->boom_num=boom_num;
     this->flag=0;
     this->time=0;
+	this->is_play = true;
+	this->is_lose = false;
+	this->is_win = false;
 }
 Block::~Block()
 {
@@ -71,6 +76,18 @@ int Block:: get_time()
 {
     return time;
 }
+bool Block::get_play()
+{
+	return is_play;
+}
+bool Block::get_win()
+{
+	return is_win;
+}
+bool Block::get_lose()
+{
+	return is_lose;
+}
 void Block::set_flag_num(int num)
 {
     flag=num;
@@ -89,21 +106,22 @@ void Block::change_time(int d_time)
 }
 
 //recursively block set show (when sur_boom == 0)
-void Block::bset_show(int x, int y){
+void Block::bset_show(int x, int y)
+{
     if(this->p[x][y].visit==1) return;
-    this->p[x][y].set_show(1);
+    this->p[x][y].set_show(true);
     this->p[x][y].visit = 1;
-    qDebug()<<"set1 success";
-    //3*3 traversal
-    for(int blockRow = x-1; blockRow <= x+1; blockRow++){
-        for(int blockCol = y-1; blockCol <=y+1; blockCol++){
-            //edge square
+	if (this->p[x][y].get_sur() != 0) return;
+    for(int blockRow = x-1; blockRow <= x+1; blockRow++)
+	{
+        for(int blockCol = y-1; blockCol <=y+1; blockCol++)
+		{
             if(blockRow<0||blockCol<0||blockRow>=this->get_row()||blockCol>=this->get_col())
                continue;
-            //if sur==0, continue executing
-            if(this->p[blockRow][blockCol].get_sur()==0 && this->p[blockRow][blockCol].visit==0){
-                qDebug()<<"recur";
-                bset_show(blockRow,blockCol);
+            if(this->p[blockRow][blockCol].visit == 0)
+			{
+				if (this->p[blockRow][blockCol].get_boom()) continue;
+				bset_show(blockRow, blockCol);
             }
         }
     }

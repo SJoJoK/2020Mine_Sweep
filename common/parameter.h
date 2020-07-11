@@ -1,4 +1,4 @@
-#ifndef PARAMETER_H
+﻿#ifndef PARAMETER_H
 #define PARAMETER_H
 
 
@@ -19,18 +19,18 @@ public:
 };
 
 //ccx 7.10
-class PositionParameter{
+class PosParameter{
 public:
-    PositionParameter() throw();
-    PositionParameter(const PositionParameter& src);
-    PositionParameter(PositionParameter&& src);
+    PosParameter() throw();
+    PosParameter(const PosParameter& src);
+    PosParameter(PosParameter&& src);
 
-    PositionParameter(int a, int b);
-    PositionParameter& operator=(const PositionParameter& src);
-    PositionParameter& operator=(PositionParameter&& src);
+    PosParameter(int a, int b);
+    PosParameter& operator=(const PosParameter& src);
+    PosParameter& operator=(PosParameter&& src);
 public:
-    int x_pos;
-    int y_pos;
+    int i;
+    int j;
 };
 
 #endif // PARAMETER_H
