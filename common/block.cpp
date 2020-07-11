@@ -47,7 +47,64 @@ Block::Block(int row, int col, int boom_num)
 	this->is_play = true;
 	this->is_lose = false;
 	this->is_win = false;
+    qDebug()<<"Construction Complete";
 }
+
+void Block::re_construct(int row, int col, int boom_num)
+{
+    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+    for(int i =0;i<row;i++)
+    {
+        delete[]  p[i];
+    }
+    delete [] p;
+    p=new Square*[row];
+    for (int i = 0; i < row ; i++)
+    {
+        p[i] = new Square [col];
+    }
+    for (int i = 0; i < boom_num; i++)
+    {
+        int index = qrand()%(row*col);
+        if(p[index/col][index%col].get_boom()==false)
+        {
+            p[index/col][index%col].set_boom(true);
+        }
+        else
+        {
+            i--;
+            continue;
+        }
+    }
+    for (int i = 0; i < row ; i++)
+    {
+        for (int j = 0; j < col ; j++)
+        {
+            int sur = 0;
+            if (p[i][j].get_boom() == true) continue;
+            for (int tmp_row = i-1; tmp_row <= i+1; tmp_row++)
+            {
+                if (tmp_row < 0 || tmp_row >= row ) continue;
+                for (int tmp_col = j-1; tmp_col <= j+1; tmp_col++)
+                {
+                    if (tmp_col < 0 || tmp_col >= col || ((tmp_row == i) && (tmp_col == j))) continue;
+                    if(p[tmp_row][tmp_col].get_boom()==true) sur++;
+                }
+            }
+            p[i][j].set_sur(sur);
+        }
+    }
+    this->col=col;
+    this->row=row;
+    this->boom_num=boom_num;
+    this->flag=0;
+    this->time=0;
+    this->is_play = true;
+    this->is_lose = false;
+    this->is_win = false;
+    qDebug()<<"Construction Complete";
+}
+
 Block::~Block()
 {
     for(int i =0;i<row;i++)

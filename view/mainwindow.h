@@ -34,6 +34,7 @@ public:
     void paint_title(QPainter  * painter);
     void paint_boom(QPainter * painter);
     void init();
+    int paint_flag=0;
 protected:
     virtual void paintEvent(QPaintEvent * event);
     virtual void mousePressEvent(QMouseEvent * event);

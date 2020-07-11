@@ -1,6 +1,5 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
-static int paint_flag=0;
 int BLOCK_LENGTH=21;
 int BLOCK_HEIGHT=21;
 int TITLE_HEIGHT=63;
@@ -194,10 +193,10 @@ void MainWindow :: paint_title(QPainter  * painter)
 {
     QPixmap restart(":img/image/smile.bmp");
     QPixmap mine_title(":img/image/mine_title.bmp");
+    static int restart_x=(int)B->get_col()*21*100/200-11;
     mine_title=mine_title.scaled(QSize(B->get_col()*21,40));
-    painter->drawPixmap(0,23,restart,0,0,100,100);
     painter->drawPixmap(0,23,mine_title,0,0,1000,1000);
-    painter->drawPixmap((int)B->get_col()*21*100/200-11,30,restart,0,0,1000,1000);
+    painter->drawPixmap(restart_x,30,restart,0,0,1000,1000);
 }
 
 void MainWindow :: paint_boom(QPainter *painter)
@@ -208,46 +207,51 @@ void MainWindow ::mousePressEvent(QMouseEvent * event)
 {
    click_x=event->x();
    click_y=event->y();
-   if(false)
-   //if(event->buttons()==(Qt::LeftButton)&&(click_x>0)&&(click_x<100)&&(click_y>0)&&(click_y<100)) LOTS OF PROBLEMS..
+   static int restart_x=(int)B->get_col()*21*100/200-11;
+   //if(false)
+   if(event->buttons()==(Qt::LeftButton)&&(click_x>restart_x)&&(click_x<55+restart_x)&&(click_y>30)&&(click_y<55))
    {
        qDebug()<<"RESTART";
+       //qDebug()<<"x:"<<click_x<<", y"<<click_y;
        std::any param1 (std::make_any<BlockParameter>());
        BlockParameter& ts= std::any_cast<BlockParameter&>(param1);
-       ts.row = 7;
-       ts.col = 7;
-       ts.boom_num = 1;
+       ts.row = B->get_row();
+       ts.col = B->get_col();
+       ts.boom_num = B->get_boom_num();
        m_cmd_restart->SetParameter(param1);
        m_cmd_restart->Exec();
        //update();
    }
-   if(event->buttons()==(Qt::LeftButton))
-       if(click_x>0)
-           if(click_x<B->get_col()*BLOCK_LENGTH)
-               if(click_y>TITLE_HEIGHT)
-                   if(click_y<B->get_row()*BLOCK_HEIGHT+TITLE_HEIGHT)
+   if(B->get_play()==true)
    {
-       //qDebug()<<"left_button";
-       std::any param2 (std::make_any<PosParameter>());
-       PosParameter& pos= std::any_cast<PosParameter&>(param2);
-       pos.j=click_x/BLOCK_LENGTH;
-       pos.i=(click_y-TITLE_HEIGHT)/BLOCK_HEIGHT;
-       m_cmd_left->SetParameter(param2);
-       m_cmd_left->Exec();
-   }
-   if(event->buttons()==(Qt::RightButton))
-	   if(click_x>0)
-		   if(click_x<B->get_col()*BLOCK_LENGTH)
-			   if(click_y>TITLE_HEIGHT)
-				   if(click_y<B->get_row()*BLOCK_HEIGHT + TITLE_HEIGHT)
-	{
-       //qDebug()<<"right_button";
-       std::any param3 (std::make_any<PosParameter>());
-       PosParameter& pos= std::any_cast<PosParameter&>(param3);
-       pos.j=click_x/BLOCK_LENGTH;
-       pos.i=(click_y-TITLE_HEIGHT)/BLOCK_HEIGHT;
-       m_cmd_right->SetParameter(param3);
-       m_cmd_right->Exec();
+       if(event->buttons()==(Qt::LeftButton))
+           if(click_x>0)
+               if(click_x<B->get_col()*BLOCK_LENGTH)
+                   if(click_y>TITLE_HEIGHT)
+                       if(click_y<B->get_row()*BLOCK_HEIGHT+TITLE_HEIGHT)
+       {
+           //qDebug()<<"left_button";
+           std::any param2 (std::make_any<PosParameter>());
+           PosParameter& pos= std::any_cast<PosParameter&>(param2);
+           pos.j=click_x/BLOCK_LENGTH;
+           pos.i=(click_y-TITLE_HEIGHT)/BLOCK_HEIGHT;
+           m_cmd_left->SetParameter(param2);
+           m_cmd_left->Exec();
+       }
+       if(event->buttons()==(Qt::RightButton))
+           if(click_x>0)
+               if(click_x<B->get_col()*BLOCK_LENGTH)
+                   if(click_y>TITLE_HEIGHT)
+                       if(click_y<B->get_row()*BLOCK_HEIGHT + TITLE_HEIGHT)
+        {
+           //qDebug()<<"right_button";
+           std::any param3 (std::make_any<PosParameter>());
+           PosParameter& pos= std::any_cast<PosParameter&>(param3);
+           pos.j=click_x/BLOCK_LENGTH;
+           pos.i=(click_y-TITLE_HEIGHT)/BLOCK_HEIGHT;
+           m_cmd_right->SetParameter(param3);
+           m_cmd_right->Exec();
+       }
    }
 }
 

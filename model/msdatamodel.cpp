@@ -1,23 +1,18 @@
 ﻿#include "msdatamodel.h"
 
-MSDataModel::MSDataModel():restart_num(0),b(std::make_shared<Block>(7,7,2))
+MSDataModel::MSDataModel():b(std::make_shared<Block>(7,7,2))
 {
 
 }
 
-int MSDataModel::get_restart_num() throw()
-{
-    return restart_num;
-}
 std::shared_ptr<Block> MSDataModel :: get_block() throw()
 {
     return b;
 }
 bool MSDataModel :: restart(int row, int col, int boom_num)
 {
-    restart_num = 1;//useless？
-    b = std::make_shared<Block>(row,col,boom_num);
-    qDebug()<<b->get_row()<<b->get_col()<<b->get_boom_num();
+    b->re_construct(row, col, boom_num);
+    //qDebug()<<b->get_row()<<b->get_col()<<b->get_boom_num();
     Fire_OnPropertyChanged("restart_num");
     return true;
 }
@@ -73,6 +68,7 @@ bool MSDataModel::rightblock(int x_pos, int y_pos){
 		b->set_play(false);
 		b->set_win(true);
         Fire_OnPropertyChanged("win");
-        return true;
+        //return true;
     }
+    return true;
 }

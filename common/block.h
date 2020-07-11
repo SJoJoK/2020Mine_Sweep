@@ -1,4 +1,4 @@
-#ifndef BLOCK_H
+﻿#ifndef BLOCK_H
 #define BLOCK_H
 #include "./square.h"
 #include <QtMath>
@@ -27,6 +27,7 @@ public:
     //ccx 7.10
     void bset_show(int x, int y);
     void reset_visit(int x, int y);
+    void re_construct(int row ,int col,int boom_num);
     Square **p;
 private:
     int row,col,boom_num;
