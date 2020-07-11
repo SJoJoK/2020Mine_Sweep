@@ -16,4 +16,12 @@ void MSViewModelSink::OnPropertyChanged(const std::string &str)
 	{
 		m_pVM->Fire_OnPropertyChanged(str);
 	}
+    if (str == "lose")
+    {
+        m_pVM->Fire_OnPropertyChanged(str);
+    }
+    if (str == "win")
+    {
+        m_pVM->Fire_OnPropertyChanged(str);
+    }
 }
