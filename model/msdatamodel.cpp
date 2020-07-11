@@ -28,6 +28,8 @@ bool MSDataModel::leftblock(int x_pos, int y_pos){
     //ccx 7.11
     //left->boom,lose
     if(b->p[x_pos][y_pos].get_boom()==1){
+		b->set_play(false);
+		b->set_lose(true);
         Fire_OnPropertyChanged("lose");
         return true;
     }
@@ -47,15 +49,17 @@ bool MSDataModel::rightblock(int x_pos, int y_pos){
             b->p[x_pos][y_pos].set_mark(0);
         }
         //10->01
-        if(b->p[x_pos][y_pos].get_flag()==1 && b->p[x_pos][y_pos].get_mark()==0){
+        else if(b->p[x_pos][y_pos].get_flag()==1 && b->p[x_pos][y_pos].get_mark()==0){
             b->p[x_pos][y_pos].set_flag(0);
             b->p[x_pos][y_pos].set_mark(1);
         }
         //01->00
-        if(b->p[x_pos][y_pos].get_flag()==0 && b->p[x_pos][y_pos].get_mark()==1){
+        else if(b->p[x_pos][y_pos].get_flag()==0 && b->p[x_pos][y_pos].get_mark()==1){
             b->p[x_pos][y_pos].set_flag(0);
             b->p[x_pos][y_pos].set_mark(0);
         }
+		qDebug() << b->p[x_pos][y_pos].show_info();
+		Fire_OnPropertyChanged("block");
     }
     //win(flag/boom onetoone)
     int cnt=0;//count number of is_flag&&is_boom
@@ -66,6 +70,8 @@ bool MSDataModel::rightblock(int x_pos, int y_pos){
     }
     //win
     if(cnt==b->get_boom_num()){
+		b->set_play(false);
+		b->set_win(true);
         Fire_OnPropertyChanged("win");
         return true;
     }

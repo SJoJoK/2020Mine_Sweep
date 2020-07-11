@@ -1,6 +1,6 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
-static int paint_flag=4;
+static int paint_flag=0;
 int BLOCK_LENGTH=21;
 int BLOCK_HEIGHT=21;
 int TITLE_HEIGHT=63;
@@ -36,6 +36,10 @@ void MainWindow::set_leftblock_command(const std::shared_ptr<ICommandBase> &cmd)
 {
      m_cmd_left = cmd;
 }
+void MainWindow::set_rightblock_command(const std::shared_ptr<ICommandBase> &cmd) throw()
+{
+	m_cmd_right = cmd;
+}
 std::shared_ptr<IPropertyNotification> MainWindow::get_propertty_sink() throw()
 {
     return std::static_pointer_cast<IPropertyNotification>(m_sink_property);
@@ -51,6 +55,9 @@ void MainWindow :: paintEvent(QPaintEvent * event)
     //paint_restart_num();
     QPainter painter(this);
     paint_my_window=&painter;
+	int click_i, click_j;
+	click_j = click_x / BLOCK_LENGTH;
+	click_i = (click_y - TITLE_HEIGHT) / BLOCK_HEIGHT;
     QPixmap mine_title(":img/image/mine_title.bmp");
     QPixmap block_close(":img/image/block_close.bmp");
     QPixmap block_open(":img/image/block_open.bmp");
@@ -79,7 +86,9 @@ void MainWindow :: paintEvent(QPaintEvent * event)
     QPixmap blk_6(":img/image/blk6.bmp");
     QPixmap blk_7(":img/image/blk7.bmp");
     QPixmap blk_8(":img/image/blk8.bmp");
-    QPixmap mark(":img/image/unknown.bmp");
+    QPixmap mark(":img/image/unknow.jpg");
+	/*if (B->get_lose() == true) 
+		qDebug() << "lose";*/
     if(paint_flag==0){
         paint_title(paint_my_window);
         for(int i=0;i<B->get_row()*BLOCK_LENGTH;i+=BLOCK_LENGTH){
@@ -88,20 +97,23 @@ void MainWindow :: paintEvent(QPaintEvent * event)
         }
         paint_flag=1;
     }
-    else{
+    else
+	{
         paint_title(paint_my_window);
-        if(B->get_play()==true){
+        if(B->get_play()==true)
+		{
             for(int i=0;i<B->get_row();i++){
                 for(int j=0;j<B->get_col();j++){
                     if(B->p[i][j].get_show()==false){
-                        painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_close,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
+						if (B->p[i][j].get_flag() == true)
+							painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, red_flag, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+						else if (B->p[i][j].get_mark() == true)
+							painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, mark, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+                        else painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_close,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
                     }
                     else{
-                        if(B->p[i][j].get_mark()==true){
-                            painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,mark,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
-                        }
                         if(B->p[i][j].get_boom()==true){
-                            painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,boom,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
+							painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, boom, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
                         }
                         else{
                             switch(B->p[i][j].get_sur())
@@ -121,56 +133,61 @@ void MainWindow :: paintEvent(QPaintEvent * event)
                 }
             }
         }
-        else{
-            if(B->get_win()==true){
-                for(int i=0;i<B->get_row();i++)
-                    for(int j=0;j<B->get_col();j++){
-                        if(B->p[i][j].get_flag()==true)
-                            painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,red_flag,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
-                        else{
-                            switch(B->p[i][j].get_sur())
-                            {
-                            case 0:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_open,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 1:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_1,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 2:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_2,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 3:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_3,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 4:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_4,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 5:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_5,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 6:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_6,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 7:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_7,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 8:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_8,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                        }
-                    }
-            }
+        else if(B->get_win()==true)
+		{
+            for(int i=0;i<B->get_row();i++)
+                for(int j=0;j<B->get_col();j++)
+				{
+                    if(B->p[i][j].get_flag()==true)
+                        painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,red_flag,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
+                    else
+					{
+                        switch(B->p[i][j].get_sur())
+                        {
+							case 0:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_open,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 1:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_1,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 2:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_2,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 3:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_3,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 4:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_4,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 5:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_5,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 6:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_6,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 7:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_7,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 8:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_8,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+						}
+					}
+				}
+		}
+        else if(B->get_lose()==true)
+		{
+			for(int i=0;i<B->get_row();i++)
+				for(int j=0;j<B->get_col();j++)
+				{
+					if(B->p[i][j].get_flag()==true)
+						painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,red_flag,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
+					else if(B->p[i][j].get_boom()==true)
+					{
+						painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,boom,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
+					}
+					else
+					{
+						switch(B->p[i][j].get_sur())
+						{
+							case 0:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_open,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 1:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_1,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 2:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_2,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 3:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_3,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 4:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_4,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 5:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_5,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 6:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_6,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 7:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_7,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+							case 8:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_8,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+						}
+					}
+				}
+              painter.drawPixmap(click_j*BLOCK_LENGTH,click_i*BLOCK_HEIGHT+TITLE_HEIGHT,click_boom,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
         }
-            else if(B->get_lose()==true){
-                for(int i=0;i<B->get_row();i++)
-                    for(int j=0;j<B->get_col();j++){
-                        if(B->p[i][j].get_flag()==true)
-                            painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,red_flag,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
-                        else if(B->p[i][j].get_boom()==true){
-                            painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,boom,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
-                        }
-                        else{
-                            switch(B->p[i][j].get_sur())
-                            {
-                            case 0:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_open,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 1:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_1,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 2:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_2,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 3:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_3,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 4:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_4,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 5:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_5,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 6:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_6,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 7:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_7,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 8:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_8,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-            }
-        //painter.drawPixmap(click_x*BLOCK_LENGTH,click_y*BLOCK_HEIGHT+TITLE_HEIGHT,click_boom,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
     }
-}
-              painter.drawPixmap(click_x*BLOCK_LENGTH,click_y*BLOCK_HEIGHT+TITLE_HEIGHT,click_boom,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
-            }
-        }
-    }
+    
 }
 
 void MainWindow :: paint_title(QPainter  * painter)
@@ -218,14 +235,19 @@ void MainWindow ::mousePressEvent(QMouseEvent * event)
        m_cmd_left->SetParameter(param2);
        m_cmd_left->Exec();
    }
-   if(event->buttons()==(Qt::RightButton)&&(click_x>0)&&(click_x<B->get_col()*BLOCK_LENGTH)&&(click_y>TITLE_HEIGHT)&&(click_y<B->get_row()*BLOCK_HEIGHT)){
+   if(event->buttons()==(Qt::RightButton))
+	   if(click_x>0)
+		   if(click_x<B->get_col()*BLOCK_LENGTH)
+			   if(click_y>TITLE_HEIGHT)
+				   if(click_y<B->get_row()*BLOCK_HEIGHT + TITLE_HEIGHT)
+	{
        //qDebug()<<"right_button";
        std::any param3 (std::make_any<PosParameter>());
        PosParameter& pos= std::any_cast<PosParameter&>(param3);
        pos.j=click_x/BLOCK_LENGTH;
        pos.i=(click_y-TITLE_HEIGHT)/BLOCK_HEIGHT;
-       m_cmd_left->SetParameter(param3);
-       m_cmd_left->Exec();
+       m_cmd_right->SetParameter(param3);
+       m_cmd_right->Exec();
    }
 }
 

@@ -17,6 +17,9 @@ public:
 	bool get_play();
 	bool get_win();
 	bool get_lose();
+	void set_play(bool x);
+	void set_win(bool x);
+	void set_lose(bool x);
     void set_flag_num(int num);
     void change_flag_num(int d_num);
     void set_time(int time);

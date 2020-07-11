@@ -88,6 +88,20 @@ bool Block::get_lose()
 {
 	return is_lose;
 }
+
+void Block::set_play(bool x)
+{
+	this->is_play = x;
+}
+void Block::set_win(bool x)
+{
+	this->is_win = x;
+}
+void Block::set_lose(bool x)
+{
+	this->is_lose = x;
+}
+
 void Block::set_flag_num(int num)
 {
     flag=num;

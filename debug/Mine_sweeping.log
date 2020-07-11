@@ -1,18 +1,4 @@
-﻿  Rcc'ing image.qrc...
-  msapp.cpp
-  block.cpp
-  main.cpp
-  msdatamodel.cpp
-  mainwindow.cpp
-  mainwindowcommandsink.cpp
-  mainwindowpropertysink.cpp
-  leftblock.cpp
-f:\homework\shortsemester2\mine_sweeping\view\sink\mainwindowcommandsink.cpp(7): warning C4100: “bOK”: 未引用的形参
-f:\homework\shortsemester2\mine_sweeping\view\mainwindow.cpp(40): warning C4100: “event”: 未引用的形参
-f:\homework\shortsemester2\mine_sweeping\view\mainwindow.cpp(138): warning C4100: “painter”: 未引用的形参
-  restartcommand.cpp
-  msviewmodel.cpp
-  msviewmodelsink.cpp
-  moc_mainwindow.cpp
-  qrc_image.cpp
+﻿  mainwindow.cpp
+f:\homework\shortsemester2\mine_sweeping\view\mainwindow.cpp(53): warning C4100: “event”: 未引用的形参
+f:\homework\shortsemester2\mine_sweeping\view\mainwindow.cpp(203): warning C4100: “painter”: 未引用的形参
   Mine_sweeping.vcxproj -> F:\Homework\ShortSemester2\Mine_sweeping\debug\Mine_sweeping.exe

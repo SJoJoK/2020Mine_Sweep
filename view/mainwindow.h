@@ -24,6 +24,7 @@ public:
     ~MainWindow();
     void set_restart_command(const std::shared_ptr<ICommandBase>& cmd) throw();
     void set_leftblock_command(const std::shared_ptr<ICommandBase>& cmd) throw();
+	void set_rightblock_command(const std::shared_ptr<ICommandBase>& cmd) throw();
     void set_restart_num(const int num) throw();
     void set_block(const std:: shared_ptr<Block> b);
     std::shared_ptr<IPropertyNotification> get_propertty_sink() throw();
@@ -41,6 +42,7 @@ private:
     int click_x,click_y;
     std::shared_ptr<ICommandBase> m_cmd_restart;
     std::shared_ptr<ICommandBase> m_cmd_left;
+	std::shared_ptr<ICommandBase> m_cmd_right;
     std::shared_ptr<MainWindowPropertySink> m_sink_property;
     std::shared_ptr<MainWindowCommandSink> m_sink_command;
     std::shared_ptr<Block> B;

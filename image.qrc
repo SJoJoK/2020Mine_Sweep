@@ -33,8 +33,8 @@
         <file>image/proud.bmp</file>
         <file>image/redflag.bmp</file>
         <file>image/smile.bmp</file>
-        <file>image/unknow.png</file>
         <file>image/win.png</file>
-        <file>image/字符8.bmp</file>
+        <file>image/blk8.bmp</file>
+        <file>image/unknow.jpg</file>
     </qresource>
 </RCC>
