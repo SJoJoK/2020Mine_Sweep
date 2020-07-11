@@ -1,9 +1,18 @@
-# 2020Mine_Sweep
-ccx 7.10 round2
-##common/parameter:
-添加了PositionParameter类，传递参数用，写法用法与BlockParameter类似
-##view/mainwindow:
-添加command:m_cmd_left 
-##viewmodel/commands:
-添加leftblock.h/cpp，与restartcommand类似
-##实现通过点击传参数后，用m_cmd_left修改is_show
+# 开发工具与项目管理
+
+|   名称   |    工具     |
+| :------: | :---------: |
+| 版本控制 | Git, GitHub |
+| 构建工具 |    QMake    |
+| 编程语言 |   C++ 17    |
+| 软件框架 |    MVVM     |
+| 交流协作 |    钉钉     |
+| 图形界面 |     Qt      |
+
+# 分工
+
+|  姓名  |                    工作                    |
+| :----: | :----------------------------------------: |
+| 孙嘉锴 | 分工，管理Git，搭建框架，写Comoon层与App层 |
+| 陈崇轩 |           写ViewModel层与Model层           |
+| 陆佳誉 |                  写View层                  |
