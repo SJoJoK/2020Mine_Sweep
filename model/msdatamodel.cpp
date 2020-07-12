@@ -92,5 +92,6 @@ bool MSDataModel::resetblock(SETTING setting, int row, int col, int boom_num){
         b->re_construct(row, col, boom_num);
     }
     Fire_OnPropertyChanged("block");
+	return true;
 
 }

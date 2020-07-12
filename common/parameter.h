@@ -1,7 +1,6 @@
 ﻿#ifndef PARAMETER_H
 #define PARAMETER_H
-
-enum SETTING {JUNIOR,MIDDLE,SENIOR,CUSTOM};//ccx 7.12 move upwards
+enum SETTING { JUNIOR, MIDDLE, SENIOR, CUSTOM };
 
 class BlockParameter
 {
@@ -36,7 +35,6 @@ public:
 
 class SettingParameter{
 public:
-    //enum SETTING {JUNIOR,MIDDLE,SENIOR,CUSTOM};
     SETTING setting;
     int row;
     int col;

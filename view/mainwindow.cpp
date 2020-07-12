@@ -44,21 +44,21 @@ void MainWindow::on_secondadd()
 
 void MainWindow::set_junior()
 {
-    std::any param (std::make_any<SettingParameter>(SettingParameter::JUNIOR));
+    std::any param (std::make_any<SettingParameter>(JUNIOR));
     m_cmd_setting->SetParameter(param);
     m_cmd_setting->Exec();
 }
 
 void MainWindow::set_middle()
 {
-    std::any param (std::make_any<SettingParameter>(SettingParameter::MIDDLE));
+    std::any param (std::make_any<SettingParameter>(MIDDLE));
     m_cmd_setting->SetParameter(param);
     m_cmd_setting->Exec();
 }
 
 void MainWindow::set_senior()
 {
-    std::any param (std::make_any<SettingParameter>(SettingParameter::SENIOR));
+    std::any param (std::make_any<SettingParameter>(SENIOR));
     m_cmd_setting->SetParameter(param);
     m_cmd_setting->Exec();
 }

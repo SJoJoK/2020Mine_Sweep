@@ -5,7 +5,7 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QPainter>
-#include <QTimer>>
+#include <QTimer>
 #include"../common/etlbase.h"
 #include"sink/mainwindowcommandsink.h"
 #include"sink/mainwindowpropertysink.h"
