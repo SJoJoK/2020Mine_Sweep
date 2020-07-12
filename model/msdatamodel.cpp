@@ -26,6 +26,7 @@ bool MSDataModel::leftblock(int x_pos, int y_pos){
 		b->set_play(false);
 		b->set_lose(true);
         Fire_OnPropertyChanged("lose");
+		b->set_lock(true);
         return true;
     }
     b->bset_show(x_pos, y_pos);
@@ -73,6 +74,7 @@ bool MSDataModel::rightblock(int x_pos, int y_pos){
 		b->set_play(false);
 		b->set_win(true);
         Fire_OnPropertyChanged("win");
+		b->set_lock(true);
         //return true;
     }
     return true;

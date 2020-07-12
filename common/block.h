@@ -17,6 +17,7 @@ public:
 	bool get_play();
 	bool get_win();
 	bool get_lose();
+	bool get_lock();
 	void set_play(bool x);
 	void set_win(bool x);
 	void set_lose(bool x);
@@ -24,6 +25,7 @@ public:
     void change_flag_num(int d_num);
     void set_time(int time);
     void change_time(int d_time);
+	void set_lock(bool x);
     //ccx 7.10
     void bset_show(int x, int y);
     void reset_visit(int x, int y);
@@ -37,6 +39,7 @@ private:
 	bool is_play;
 	bool is_win;
 	bool is_lose;
+	bool is_lock;
     //ccx 7.12
     int flag_num;
 };

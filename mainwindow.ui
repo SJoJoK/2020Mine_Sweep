@@ -30,13 +30,16 @@
     <addaction name="actionJunior"/>
     <addaction name="actionMiddle"/>
     <addaction name="actionSenior"/>
+    <addaction name="actionCustom"/>
     <addaction name="separator"/>
+    <addaction name="actionCHEAT"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
      <string>About</string>
     </property>
     <addaction name="actionCreators"/>
+    <addaction name="actionRanking"/>
    </widget>
    <addaction name="menuGame"/>
    <addaction name="menuAbout"/>
@@ -60,6 +63,21 @@
   <action name="actionCreators">
    <property name="text">
     <string>Creators</string>
+   </property>
+  </action>
+  <action name="actionCustom">
+   <property name="text">
+    <string>Custom</string>
+   </property>
+  </action>
+  <action name="actionCHEAT">
+   <property name="text">
+    <string>CHEAT</string>
+   </property>
+  </action>
+  <action name="actionRanking">
+   <property name="text">
+    <string>Ranking</string>
    </property>
   </action>
  </widget>

@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionMiddle, SIGNAL(triggered(bool)),this,SLOT(set_middle()));
     connect(ui->actionSenior, SIGNAL(triggered(bool)),this,SLOT(set_senior()));
     //connect(ui->actionCreators, SIGNAL(triggered(bool)),this,SLOT(show_creators()));
+    connect(ui->actionCreators,SIGNAL(triggered(bool)),this,SLOT(show_creators()));
     runtime=new QTimer(this);
     connect(runtime,SIGNAL(timeout()),this,SLOT(on_secondadd()));
     runtime->start(1000);
@@ -44,25 +45,32 @@ void MainWindow::on_secondadd()
 
 void MainWindow::set_junior()
 {
-    std::any param (std::make_any<SettingParameter>(JUNIOR));
+	std::any param(std::make_any<SettingParameter>(JUNIOR, 0, 0, 0));
     m_cmd_setting->SetParameter(param);
     m_cmd_setting->Exec();
 }
 
 void MainWindow::set_middle()
 {
-    std::any param (std::make_any<SettingParameter>(MIDDLE));
+	std::any param(std::make_any<SettingParameter>(MIDDLE, 0, 0, 0));
     m_cmd_setting->SetParameter(param);
     m_cmd_setting->Exec();
 }
 
 void MainWindow::set_senior()
 {
-    std::any param (std::make_any<SettingParameter>(SENIOR));
+	std::any param(std::make_any<SettingParameter>(SENIOR, 0, 0, 0));
     m_cmd_setting->SetParameter(param);
     m_cmd_setting->Exec();
 }
 
+void MainWindow::show_creators()
+{
+    QMessageBox::about(this, tr("About the game"), tr("The <b>Mine_Sweeping</b> is created by <br>"
+                                                         "Sun Jiakai"
+                                                         "<br>Chen Chongxuan"
+                                                         "<br>Lu Jiayu"));
+}
 void MainWindow::time_init()
 {
     B->set_time(0);
@@ -102,26 +110,12 @@ void MainWindow :: paintEvent(QPaintEvent * event)
 	int click_i, click_j;
 	click_j = click_x / BLOCK_LENGTH;
 	click_i = (click_y - TITLE_HEIGHT) / BLOCK_HEIGHT;
-    QPixmap mine_title(":img/image/mine_title.bmp");
     QPixmap block_close(":img/image/block_close.bmp");
     QPixmap block_open(":img/image/block_open.bmp");
     QPixmap red_flag(":img/image/redflag.bmp");
     QPixmap keil_boom(":img/image/keilboom.bmp");
     QPixmap click_boom(":img/image/clickboom.bmp");
     QPixmap boom(":img/image/boom.bmp");
-    QPixmap qq_smile(":img/image/smile.bmp");
-    QPixmap qq_lose(":img/image/lose.bmp");
-    QPixmap qq_pround(":img/image/proud.bmp");
-    QPixmap ele_0(":img/image/ele0.bmp");
-    QPixmap ele_1(":img/image/ele1.bmp");
-    QPixmap ele_2(":img/image/ele2.bmp");
-    QPixmap ele_3(":img/image/ele3.bmp");
-    QPixmap ele_4(":img/image/ele4.bmp");
-    QPixmap ele_5(":img/image/ele5.bmp");
-    QPixmap ele_6(":img/image/ele6.bmp");
-    QPixmap ele_7(":img/image/ele7.bmp");
-    QPixmap ele_8(":img/image/ele8.bmp");
-    QPixmap ele_9(":img/image/ele9.bmp");
     QPixmap blk_1(":img/image/blk1.bmp");
     QPixmap blk_2(":img/image/blk2.bmp");
     QPixmap blk_3(":img/image/blk3.bmp");
@@ -228,7 +222,18 @@ void MainWindow :: paintEvent(QPaintEvent * event)
 						}
 					}
 				}
-              painter.drawPixmap(click_j*BLOCK_LENGTH,click_i*BLOCK_HEIGHT+TITLE_HEIGHT,click_boom,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
+			static int x, y;
+			if (B->get_lock() == false)
+			{
+				painter.drawPixmap(click_j*BLOCK_LENGTH, click_i*BLOCK_HEIGHT + TITLE_HEIGHT, click_boom, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+				x = click_j * BLOCK_LENGTH;
+				y = click_i * BLOCK_HEIGHT + TITLE_HEIGHT;
+			}
+			else
+			{
+				painter.drawPixmap(x, y, click_boom, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+			}
+			
         }
     }
     
@@ -239,12 +244,6 @@ void MainWindow :: paint_title(QPainter  * painter)
     int LENGTH=B->get_col()*21;
     int HEIGHT=B->get_row()*21+63;
     QPixmap mine_title(":img/image/mine_title.bmp");
-    QPixmap block_close(":img/image/block_close.bmp");
-    QPixmap block_open(":img/image/block_open.bmp");
-    QPixmap red_flag(":img/image/redflag.bmp");
-    QPixmap keil_boom(":img/image/keilboom.bmp");
-    QPixmap click_boom(":img/image/clickboom.bmp");
-    QPixmap boom(":img/image/boom.bmp");
     QPixmap qq_lose(":img/image/lose.bmp");
     QPixmap qq_pround(":img/image/proud.bmp");
     QPixmap ele_0(":img/image/ele0.bmp");
@@ -258,27 +257,24 @@ void MainWindow :: paint_title(QPainter  * painter)
     QPixmap ele_8(":img/image/ele8.bmp");
     QPixmap ele_9(":img/image/ele9.bmp");
     QPixmap ele_10(":img/image/ele10.bmp");
-    QPixmap blk_1(":img/image/blk1.bmp");
-    QPixmap blk_2(":img/image/blk2.bmp");
-    QPixmap blk_3(":img/image/blk3.bmp");
-    QPixmap blk_4(":img/image/blk4.bmp");
-    QPixmap blk_5(":img/image/blk5.bmp");
-    QPixmap blk_6(":img/image/blk6.bmp");
-    QPixmap blk_7(":img/image/blk7.bmp");
-    QPixmap blk_8(":img/image/blk8.bmp");
-    QPixmap mark(":img/image/unknow.jpg");
     QPixmap restart(":img/image/smile.bmp");
-    static int restart_x=(int)B->get_col()*21*100/200-11;
+    int restart_x=(int)B->get_col()*21*100/200-11;
     mine_title=mine_title.scaled(QSize(B->get_col()*21,40));
     painter->drawPixmap(0,TITLE_BEGIN,mine_title,0,0,1000,1000);
-    if(B->get_win()==true)
-        painter->drawPixmap(restart_x,30,qq_pround,0,0,1000,1000);
-    else if(B->get_lose()==true){
-        painter->drawPixmap(restart_x,30,qq_lose,0,0,1000,1000);
-    }
-    else
-        painter->drawPixmap(restart_x,30,restart,0,0,1000,1000);
-    int redflagnum=B->get_flag_num();
+	if (B->get_win() == true)
+		painter->drawPixmap(restart_x, 30, qq_pround, 0, 0, 1000, 1000);
+	else if (B->get_lose() == true) {
+		painter->drawPixmap(restart_x, 30, qq_lose, 0, 0, 1000, 1000);
+	}
+	else
+	{
+		painter->drawPixmap(restart_x, 30, restart, 0, 0, 1000, 1000);
+	}
+	static int redflagnum = 0;
+	if (B->get_play() == true)
+	{
+		redflagnum = B->get_flag_num();
+	}
     if(redflagnum<0)
         {
             redflagnum = -redflagnum;
@@ -311,7 +307,11 @@ void MainWindow :: paint_title(QPainter  * painter)
         case 8:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_8,0,0,1000,1000);break;
         case 9:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_9,0,0,1000,1000);break;
         }
-    int timenum=B->get_time();
+    static int timenum=0;
+	if (B->get_play() == true)
+	{
+		timenum = B->get_time();
+	}
         switch  (timenum/100)
         {
         case 0:  painter->drawPixmap((int)(LENGTH*163)/200-30,5+TITLE_BEGIN,ele_0,0,0,1000,1000);break;
@@ -353,16 +353,11 @@ void MainWindow :: paint_title(QPainter  * painter)
         }
 }
 
-void MainWindow :: paint_boom(QPainter *painter)
-{
-
-}
-
 void MainWindow ::mousePressEvent(QMouseEvent * event)
 {
    click_x=event->x();
    click_y=event->y();
-   static int restart_x=(int)B->get_col()*21*100/200-11;
+   int restart_x=(int)B->get_col()*21*100/200-11;
    //if(false)
    if(event->buttons()==(Qt::LeftButton)&&(click_x>restart_x)&&(click_x<55+restart_x)&&(click_y>30)&&(click_y<55))
    {

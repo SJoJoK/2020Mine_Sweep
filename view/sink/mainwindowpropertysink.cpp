@@ -19,6 +19,6 @@ void MainWindowPropertySink::OnPropertyChanged(const std::string& str)
     if( str == "lose")
     {
 		m_pW->update();
-        QMessageBox::information(NULL,"Sorry","you lose!");
+        QMessageBox::information(NULL,"Sorry","You lose!");
     }
 }

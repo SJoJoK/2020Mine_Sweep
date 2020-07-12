@@ -47,13 +47,14 @@ Block::Block(int row, int col, int boom_num)
 	this->is_play = true;
 	this->is_lose = false;
 	this->is_win = false;
+	this->is_lock = false;
     qDebug()<<"Construction Complete";
 }
 
 void Block::re_construct(int row, int col, int boom_num)
 {
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-    for(int i =0;i<row;i++)
+    for(int i =0;i < this->row;i++)
     {
         delete[]  p[i];
     }
@@ -102,6 +103,7 @@ void Block::re_construct(int row, int col, int boom_num)
     this->is_play = true;
     this->is_lose = false;
     this->is_win = false;
+	this->is_lock = false;
     qDebug()<<"Construction Complete";
 }
 
@@ -145,7 +147,10 @@ bool Block::get_lose()
 {
 	return is_lose;
 }
-
+bool Block::get_lock()
+{
+	return is_lock;
+}
 void Block::set_play(bool x)
 {
 	this->is_play = x;
@@ -158,7 +163,10 @@ void Block::set_lose(bool x)
 {
 	this->is_lose = x;
 }
-
+void Block::set_lock(bool x)
+{
+	this->is_lock = x;
+}
 void Block::set_flag_num(int num)
 {
     flag=num;

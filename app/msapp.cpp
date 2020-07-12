@@ -23,6 +23,7 @@ bool MSApp::Init(MainWindow& w)
     w.set_restart_command(m_spViewModel->get_restart_command());
     w.set_leftblock_command(m_spViewModel->get_leftblock_command());
 	w.set_rightblock_command(m_spViewModel->get_rightblock_command());
+	w.set_setting_command(m_spViewModel->get_resetblock_command());
     // notifications
     m_spViewModel->AddPropertyNotification(w.get_propertty_sink());
     m_spViewModel->AddCommandNotification(w.get_command_sink());

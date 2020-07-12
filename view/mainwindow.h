@@ -34,7 +34,6 @@ public:
     std::shared_ptr<MSViewModel> m_pVM;
     void paint_restart_num();
     void paint_title(QPainter  * painter);
-    void paint_boom(QPainter * painter);
     void init();
     void time_init();
     int paint_flag=0;
@@ -56,7 +55,7 @@ private slots:
     void set_junior();
     void set_senior();
     void set_middle();
-    //void show_creators();
+    void show_creators();
     void on_secondadd();
 };
 #endif // MAINWINDOW_H

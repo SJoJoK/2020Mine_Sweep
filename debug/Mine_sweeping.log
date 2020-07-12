@@ -1,8 +1,4 @@
 ﻿  mainwindow.cpp
-  msdatamodel.cpp
 f:\homework\shortsemester2\mine_sweeping\view\mainwindow.cpp(98): warning C4100: “event”: 未引用的形参
-f:\homework\shortsemester2\mine_sweeping\view\mainwindow.cpp(240): warning C4189: “HEIGHT”: 局部变量已初始化但不引用
-f:\homework\shortsemester2\mine_sweeping\view\mainwindow.cpp(356): warning C4100: “painter”: 未引用的形参
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\any(471): error C2440: “初始化”: 无法从“initializer list”转换为“std::any” (编译源文件 view\mainwindow.cpp)
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\any(470): note: 无构造函数可以接受源类型，或构造函数重载决策不明确 (编译源文件 view\mainwindow.cpp)
-  f:\homework\shortsemester2\mine_sweeping\view\mainwindow.cpp(47): note: 参见对正在编译的函数 模板 实例化“std::any std::make_any<SettingParameter,SETTING>(SETTING &&)”的引用
+f:\homework\shortsemester2\mine_sweeping\view\mainwindow.cpp(237): warning C4189: “HEIGHT”: 局部变量已初始化但不引用
+  Mine_sweeping.vcxproj -> F:\Homework\ShortSemester2\Mine_sweeping\debug\Mine_sweeping.exe
