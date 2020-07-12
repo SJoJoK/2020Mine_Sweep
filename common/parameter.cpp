@@ -66,18 +66,27 @@ PosParameter::PosParameter(PosParameter&& src){
     j = static_cast<int&&>(src.j);
 }
 
-SettingParameter::SettingParameter(SETTING x){
+SettingParameter::SettingParameter(SETTING x,int row,int col,int boom_num){
     this->setting=x;
+    this->row=row;
+    this->col=col;
+    this->boom_num=boom_num;
 }
 SettingParameter& SettingParameter::operator=(const SettingParameter &src){
     if( this != &src ) {
         this->setting=src.setting;
+        this->row=src.row;
+        this->col=src.col;
+        this->boom_num=src.boom_num;
     }
     return *this;
 }
 SettingParameter& SettingParameter::operator=(SettingParameter &&src){
     if( this != &src ) {
         this->setting=src.setting;
+        this->row=src.row;
+        this->col=src.col;
+        this->boom_num=src.boom_num;
     }
     return *this;
 }
@@ -89,4 +98,7 @@ SettingParameter::SettingParameter(const SettingParameter& src):setting(src.sett
 }
 SettingParameter::SettingParameter(SettingParameter&& src){
     setting = static_cast<SETTING&&>(src.setting);
+    row = static_cast<int&&>(src.row);
+    col = static_cast<int&&>(src.col);
+    boom_num = static_cast<int&&>(src.boom_num);
 }

@@ -1,6 +1,7 @@
 ﻿#ifndef PARAMETER_H
 #define PARAMETER_H
 
+enum SETTING {JUNIOR,MIDDLE,SENIOR,CUSTOM};//ccx 7.12 move upwards
 
 class BlockParameter
 {
@@ -35,16 +36,19 @@ public:
 
 class SettingParameter{
 public:
-    enum SETTING {JUNIOR,MIDDLE,SENIOR,CUSTOM};
+    //enum SETTING {JUNIOR,MIDDLE,SENIOR,CUSTOM};
     SETTING setting;
+    int row;
+    int col;
+    int boom_num;
 public:
     SettingParameter() throw();
     SettingParameter(const SettingParameter& src);
     SettingParameter(SettingParameter&& src);
 
-    SettingParameter(SETTING x);
+    SettingParameter(SETTING x,int row,int col, int boom_num);
     SettingParameter& operator=(const SettingParameter& src);
     SettingParameter& operator=(SettingParameter&& src);
 };
-
+//ccx 7.12 add row/col/boom_num
 #endif // PARAMETER_H

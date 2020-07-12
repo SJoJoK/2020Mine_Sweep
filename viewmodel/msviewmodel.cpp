@@ -4,6 +4,7 @@ MSViewModel::MSViewModel() :
                                 m_cmd_restart(std::make_shared<RestartCommand>(this)),
                                 m_cmd_left(std::make_shared<LeftBlockCommand>(this)),
                                 m_cmd_right(std::make_shared<RightBlockCommand>(this)),
+                                m_cmd_resetblock(std::make_shared<ResetBlockCommand>(this)),
                                 m_sink(std::make_shared<MSViewModelSink>(this))
 {
 }
@@ -31,6 +32,12 @@ std::shared_ptr<ICommandBase> MSViewModel::get_rightblock_command() throw()
     return std::static_pointer_cast<ICommandBase>(m_cmd_right );
 }
 
+//ccx 7.12
+std::shared_ptr<ICommandBase> MSViewModel::get_resetblock_command() throw()
+{
+    return std::static_pointer_cast<ICommandBase>(m_cmd_resetblock );
+}
+
 std::shared_ptr<Block> MSViewModel ::get_block()
 {
     return m_MSModel->get_block();
@@ -50,4 +57,7 @@ bool MSViewModel::leftblock(int x_pos, int y_pos)
 bool MSViewModel::rightblock(int x_pos, int y_pos)
 {
     return m_MSModel->rightblock(x_pos, y_pos);
+}
+bool MSViewModel::resetblock(SETTING setting,int row, int col, int boom_num){
+    return m_MSModel->resetblock(setting,row,col,boom_num);
 }
