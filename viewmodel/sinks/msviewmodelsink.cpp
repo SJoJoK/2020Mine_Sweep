@@ -19,4 +19,8 @@ void MSViewModelSink::OnPropertyChanged(const std::string &str)
     {
         m_pVM->Fire_OnPropertyChanged(str);
     }
+    if(str == "restart")
+    {
+        m_pVM->Fire_OnPropertyChanged(str);
+    }
 }

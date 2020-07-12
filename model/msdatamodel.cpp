@@ -1,6 +1,6 @@
 ﻿#include "msdatamodel.h"
 
-MSDataModel::MSDataModel():b(std::make_shared<Block>(10,10,2))
+MSDataModel::MSDataModel():b(std::make_shared<Block>(8,8,10))
 {
 
 }
@@ -42,20 +42,25 @@ bool MSDataModel::rightblock(int x_pos, int y_pos){
         if(b->p[x_pos][y_pos].get_flag()==0 && b->p[x_pos][y_pos].get_mark()==0){
             b->p[x_pos][y_pos].set_flag(1);
             b->p[x_pos][y_pos].set_mark(0);
+            b->change_flag_num(1);
         }
         //10->01
         else if(b->p[x_pos][y_pos].get_flag()==1 && b->p[x_pos][y_pos].get_mark()==0){
             b->p[x_pos][y_pos].set_flag(0);
             b->p[x_pos][y_pos].set_mark(1);
+            b->change_flag_num(-1);
         }
         //01->00
         else if(b->p[x_pos][y_pos].get_flag()==0 && b->p[x_pos][y_pos].get_mark()==1){
             b->p[x_pos][y_pos].set_flag(0);
             b->p[x_pos][y_pos].set_mark(0);
         }
+        //ccx 7.12 change current flag number
+
 		qDebug() << b->p[x_pos][y_pos].show_info();
 		Fire_OnPropertyChanged("block");
     }
+
     //win(flag/boom onetoone)
     int cnt=0;//count number of is_flag&&is_boom
     for(int i=0; i<b->get_row(); i++){
@@ -71,4 +76,21 @@ bool MSDataModel::rightblock(int x_pos, int y_pos){
         //return true;
     }
     return true;
+}
+
+bool MSDataModel::resetblock(SETTING setting, int row, int col, int boom_num){
+    if(setting == JUNIOR){
+        b->re_construct(8,8,10);
+    }
+    if(setting == MIDDLE){
+        b->re_construct(16,16,40);
+    }
+    if(setting == SENIOR){
+        b->re_construct(32,16,99);
+    }
+    if(setting == CUSTOM){
+        b->re_construct(row, col, boom_num);
+    }
+    Fire_OnPropertyChanged("block");
+
 }

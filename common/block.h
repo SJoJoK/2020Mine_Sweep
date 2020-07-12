@@ -28,6 +28,8 @@ public:
     void bset_show(int x, int y);
     void reset_visit(int x, int y);
     void re_construct(int row ,int col,int boom_num);
+    //ccx 7.12
+
     Square **p;
 private:
     int row,col,boom_num;
@@ -35,7 +37,8 @@ private:
 	bool is_play;
 	bool is_win;
 	bool is_lose;
-
+    //ccx 7.12
+    int flag_num;
 };
 
 
