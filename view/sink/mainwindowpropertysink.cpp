@@ -8,6 +8,7 @@ void MainWindowPropertySink::OnPropertyChanged(const std::string& str)
 {
     if( str == "block" )
     {
+        m_pW->time_init();
         m_pW->update();
     }
     if( str == "win" )

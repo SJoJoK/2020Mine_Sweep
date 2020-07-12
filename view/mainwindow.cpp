@@ -3,6 +3,8 @@
 int BLOCK_LENGTH=21;
 int BLOCK_HEIGHT=21;
 int TITLE_HEIGHT=63;
+int TITLE_BEGIN=23;
+int ELENUM_LENGTH=20;
 QPainter *paint_my_window;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,10 +14,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->actionJunior, SIGNAL(triggered(bool)), this, SLOT(set_junior()));
-    //connect(ui->actionMiddle, SIGNAL(triggered(bool)),this,SLOT(set_middle()));
-    //connect(ui->actionSenior, SIGNAL(triggered(bool)),this,SLOT(set_senior()));
+    connect(ui->actionMiddle, SIGNAL(triggered(bool)),this,SLOT(set_middle()));
+    connect(ui->actionSenior, SIGNAL(triggered(bool)),this,SLOT(set_senior()));
     //connect(ui->actionCreators, SIGNAL(triggered(bool)),this,SLOT(show_creators()));
-
+    runtime=new QTimer(this);
+    connect(runtime,SIGNAL(timeout()),this,SLOT(on_secondadd()));
+    runtime->start(1000);
+    connect(runtime,SIGNAL(timeout()),this,SLOT(update()));
 }
 
 MainWindow::~MainWindow()
@@ -32,12 +37,37 @@ void MainWindow::init()
     this->resize(LENGTH,HEIGHT);
 }
 
+void MainWindow::on_secondadd()
+{
+    B->change_time(1);
+}
+
 void MainWindow::set_junior()
 {
     std::any param (std::make_any<SettingParameter>(SettingParameter::JUNIOR));
     m_cmd_setting->SetParameter(param);
     m_cmd_setting->Exec();
 }
+
+void MainWindow::set_middle()
+{
+    std::any param (std::make_any<SettingParameter>(SettingParameter::MIDDLE));
+    m_cmd_setting->SetParameter(param);
+    m_cmd_setting->Exec();
+}
+
+void MainWindow::set_senior()
+{
+    std::any param (std::make_any<SettingParameter>(SettingParameter::SENIOR));
+    m_cmd_setting->SetParameter(param);
+    m_cmd_setting->Exec();
+}
+
+void MainWindow::time_init()
+{
+    B->set_time(0);
+}
+
 
 void MainWindow::set_restart_command(const std::shared_ptr<ICommandBase> &cmd) throw()
 {
@@ -50,6 +80,10 @@ void MainWindow::set_leftblock_command(const std::shared_ptr<ICommandBase> &cmd)
 void MainWindow::set_rightblock_command(const std::shared_ptr<ICommandBase> &cmd) throw()
 {
 	m_cmd_right = cmd;
+}
+void MainWindow::set_setting_command(const std::shared_ptr<ICommandBase> &cmd) throw()
+{
+    m_cmd_setting = cmd;
 }
 std::shared_ptr<IPropertyNotification> MainWindow::get_propertty_sink() throw()
 {
@@ -202,12 +236,121 @@ void MainWindow :: paintEvent(QPaintEvent * event)
 
 void MainWindow :: paint_title(QPainter  * painter)
 {
-    QPixmap restart(":img/image/smile.bmp");
+    int LENGTH=B->get_col()*21;
+    int HEIGHT=B->get_row()*21+63;
     QPixmap mine_title(":img/image/mine_title.bmp");
+    QPixmap block_close(":img/image/block_close.bmp");
+    QPixmap block_open(":img/image/block_open.bmp");
+    QPixmap red_flag(":img/image/redflag.bmp");
+    QPixmap keil_boom(":img/image/keilboom.bmp");
+    QPixmap click_boom(":img/image/clickboom.bmp");
+    QPixmap boom(":img/image/boom.bmp");
+    QPixmap qq_lose(":img/image/lose.bmp");
+    QPixmap qq_pround(":img/image/proud.bmp");
+    QPixmap ele_0(":img/image/ele0.bmp");
+    QPixmap ele_1(":img/image/ele1.bmp");
+    QPixmap ele_2(":img/image/ele2.bmp");
+    QPixmap ele_3(":img/image/ele3.bmp");
+    QPixmap ele_4(":img/image/ele4.bmp");
+    QPixmap ele_5(":img/image/ele5.bmp");
+    QPixmap ele_6(":img/image/ele6.bmp");
+    QPixmap ele_7(":img/image/ele7.bmp");
+    QPixmap ele_8(":img/image/ele8.bmp");
+    QPixmap ele_9(":img/image/ele9.bmp");
+    QPixmap ele_10(":img/image/ele10.bmp");
+    QPixmap blk_1(":img/image/blk1.bmp");
+    QPixmap blk_2(":img/image/blk2.bmp");
+    QPixmap blk_3(":img/image/blk3.bmp");
+    QPixmap blk_4(":img/image/blk4.bmp");
+    QPixmap blk_5(":img/image/blk5.bmp");
+    QPixmap blk_6(":img/image/blk6.bmp");
+    QPixmap blk_7(":img/image/blk7.bmp");
+    QPixmap blk_8(":img/image/blk8.bmp");
+    QPixmap mark(":img/image/unknow.jpg");
+    QPixmap restart(":img/image/smile.bmp");
     static int restart_x=(int)B->get_col()*21*100/200-11;
     mine_title=mine_title.scaled(QSize(B->get_col()*21,40));
-    painter->drawPixmap(0,23,mine_title,0,0,1000,1000);
-    painter->drawPixmap(restart_x,30,restart,0,0,1000,1000);
+    painter->drawPixmap(0,TITLE_BEGIN,mine_title,0,0,1000,1000);
+    if(B->get_win()==true)
+        painter->drawPixmap(restart_x,30,qq_pround,0,0,1000,1000);
+    else if(B->get_lose()==true){
+        painter->drawPixmap(restart_x,30,qq_lose,0,0,1000,1000);
+    }
+    else
+        painter->drawPixmap(restart_x,30,restart,0,0,1000,1000);
+    int redflagnum=B->get_flag_num();
+    if(redflagnum<0)
+        {
+            redflagnum = -redflagnum;
+            painter->drawPixmap((int)(LENGTH*40)/200-30,5+TITLE_BEGIN,ele_10,0,0,1000,1000);
+        }
+    else painter->drawPixmap((int)(LENGTH*40)/200-30,5+TITLE_BEGIN,ele_0,0,0,1000,1000);
+        switch(redflagnum/10)
+        {
+        case 0:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_0,0,0,1000,1000);break;
+        case 1:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_1,0,0,1000,1000);break;
+        case 2:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_2,0,0,1000,1000);break;
+        case 3:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_3,0,0,1000,1000);break;
+        case 4:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_4,0,0,1000,1000);break;
+        case 5:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_5,0,0,1000,1000);break;
+        case 6:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_6,0,0,1000,1000);break;
+        case 7:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_7,0,0,1000,1000);break;
+        case 8:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_8,0,0,1000,1000);break;
+        case 9:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_9,0,0,1000,1000);break;
+        }
+        switch (redflagnum%10)
+        {
+        case 0:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_0,0,0,1000,1000);break;
+        case 1:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_1,0,0,1000,1000);break;
+        case 2:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_2,0,0,1000,1000);break;
+        case 3:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_3,0,0,1000,1000);break;
+        case 4:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_4,0,0,1000,1000);break;
+        case 5:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_5,0,0,1000,1000);break;
+        case 6:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_6,0,0,1000,1000);break;
+        case 7:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_7,0,0,1000,1000);break;
+        case 8:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_8,0,0,1000,1000);break;
+        case 9:  painter->drawPixmap((int)(LENGTH*40)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_9,0,0,1000,1000);break;
+        }
+    int timenum=B->get_time();
+        switch  (timenum/100)
+        {
+        case 0:  painter->drawPixmap((int)(LENGTH*163)/200-30,5+TITLE_BEGIN,ele_0,0,0,1000,1000);break;
+        case 1:  painter->drawPixmap((int)(LENGTH*163)/200-30,5+TITLE_BEGIN,ele_1,0,0,1000,1000);break;
+        case 2:  painter->drawPixmap((int)(LENGTH*163)/200-30,5+TITLE_BEGIN,ele_2,0,0,1000,1000);break;
+        case 3:  painter->drawPixmap((int)(LENGTH*163)/200-30,5+TITLE_BEGIN,ele_3,0,0,1000,1000);break;
+        case 4:  painter->drawPixmap((int)(LENGTH*163)/200-30,5+TITLE_BEGIN,ele_4,0,0,1000,1000);break;
+        case 5:  painter->drawPixmap((int)(LENGTH*163)/200-30,5+TITLE_BEGIN,ele_5,0,0,1000,1000);break;
+        case 6:  painter->drawPixmap((int)(LENGTH*163)/200-30,5+TITLE_BEGIN,ele_6,0,0,1000,1000);break;
+        case 7:  painter->drawPixmap((int)(LENGTH*163)/200-30,5+TITLE_BEGIN,ele_7,0,0,1000,1000);break;
+        case 8:  painter->drawPixmap((int)(LENGTH*163)/200-30,5+TITLE_BEGIN,ele_8,0,0,1000,1000);break;
+        case 9:  painter->drawPixmap((int)(LENGTH*163)/200-30,5+TITLE_BEGIN,ele_9,0,0,1000,1000);break;
+        }
+        switch  ((timenum/10)%10)
+        {
+        case 0:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_0,0,0,1000,1000);break;
+        case 1:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_1,0,0,1000,1000);break;
+        case 2:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_2,0,0,1000,1000);break;
+        case 3:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_3,0,0,1000,1000);break;
+        case 4:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_4,0,0,1000,1000);break;
+        case 5:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_5,0,0,1000,1000);break;
+        case 6:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_6,0,0,1000,1000);break;
+        case 7:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_7,0,0,1000,1000);break;
+        case 8:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_8,0,0,1000,1000);break;
+        case 9:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH,5+TITLE_BEGIN,ele_9,0,0,1000,1000);break;
+        }
+        switch  (timenum%10)
+        {
+        case 0:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_0,0,0,1000,1000);break;
+        case 1:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_1,0,0,1000,1000);break;
+        case 2:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_2,0,0,1000,1000);break;
+        case 3:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_3,0,0,1000,1000);break;
+        case 4:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_4,0,0,1000,1000);break;
+        case 5:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_5,0,0,1000,1000);break;
+        case 6:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_6,0,0,1000,1000);break;
+        case 7:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_7,0,0,1000,1000);break;
+        case 8:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_8,0,0,1000,1000);break;
+        case 9:  painter->drawPixmap((int)(LENGTH*163)/200-30+ELENUM_LENGTH+ELENUM_LENGTH,5+TITLE_BEGIN,ele_9,0,0,1000,1000);break;
+        }
 }
 
 void MainWindow :: paint_boom(QPainter *painter)
