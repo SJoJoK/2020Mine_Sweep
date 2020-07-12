@@ -11,6 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
     , m_sink_command(std::make_shared<MainWindowCommandSink>(this))
 {
     ui->setupUi(this);
+    connect(ui->actionJunior, SIGNAL(triggered(bool)), this, SLOT(set_junior()));
+    //connect(ui->actionMiddle, SIGNAL(triggered(bool)),this,SLOT(set_middle()));
+    //connect(ui->actionSenior, SIGNAL(triggered(bool)),this,SLOT(set_senior()));
+    //connect(ui->actionCreators, SIGNAL(triggered(bool)),this,SLOT(show_creators()));
+
 }
 
 MainWindow::~MainWindow()
@@ -25,6 +30,13 @@ void MainWindow::init()
     this->setMinimumSize(LENGTH,HEIGHT);
     this->setMaximumSize(LENGTH*2,HEIGHT*2);
     this->resize(LENGTH,HEIGHT);
+}
+
+void MainWindow::set_junior()
+{
+    std::any param (std::make_any<SettingParameter>(SettingParameter::JUNIOR));
+    m_cmd_setting->SetParameter(param);
+    m_cmd_setting->Exec();
 }
 
 void MainWindow::set_restart_command(const std::shared_ptr<ICommandBase> &cmd) throw()
@@ -51,7 +63,6 @@ std::shared_ptr<ICommandNotification> MainWindow::get_command_sink() throw()
 
 void MainWindow :: paintEvent(QPaintEvent * event)
 {
-    //paint_restart_num();
     QPainter painter(this);
     paint_my_window=&painter;
 	int click_i, click_j;
@@ -203,6 +214,7 @@ void MainWindow :: paint_boom(QPainter *painter)
 {
 
 }
+
 void MainWindow ::mousePressEvent(QMouseEvent * event)
 {
    click_x=event->x();

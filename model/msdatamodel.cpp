@@ -1,6 +1,6 @@
 ﻿#include "msdatamodel.h"
 
-MSDataModel::MSDataModel():b(std::make_shared<Block>(7,7,2))
+MSDataModel::MSDataModel():b(std::make_shared<Block>(10,10,2))
 {
 
 }
@@ -13,7 +13,7 @@ bool MSDataModel :: restart(int row, int col, int boom_num)
 {
     b->re_construct(row, col, boom_num);
     //qDebug()<<b->get_row()<<b->get_col()<<b->get_boom_num();
-    Fire_OnPropertyChanged("restart_num");
+    //Fire_OnPropertyChanged("restart_num");
     return true;
 }
 bool MSDataModel::leftblock(int x_pos, int y_pos){

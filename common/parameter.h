@@ -33,4 +33,18 @@ public:
     int j;
 };
 
+class SettingParameter{
+public:
+    enum SETTING {JUNIOR,MIDDLE,SENIOR,CUSTOM};
+    SETTING setting;
+public:
+    SettingParameter() throw();
+    SettingParameter(const SettingParameter& src);
+    SettingParameter(SettingParameter&& src);
+
+    SettingParameter(SETTING x);
+    SettingParameter& operator=(const SettingParameter& src);
+    SettingParameter& operator=(SettingParameter&& src);
+};
+
 #endif // PARAMETER_H

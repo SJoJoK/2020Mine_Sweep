@@ -23,14 +23,45 @@
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="menuGame">
     <property name="title">
-     <string>游戏</string>
+     <string>Game</string>
     </property>
+    <addaction name="actionJunior"/>
+    <addaction name="actionMiddle"/>
+    <addaction name="actionSenior"/>
+    <addaction name="separator"/>
    </widget>
-   <addaction name="menu"/>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionCreators"/>
+   </widget>
+   <addaction name="menuGame"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionJunior">
+   <property name="text">
+    <string>Junior</string>
+   </property>
+  </action>
+  <action name="actionMiddle">
+   <property name="text">
+    <string>Middle</string>
+   </property>
+  </action>
+  <action name="actionSenior">
+   <property name="text">
+    <string>Senior</string>
+   </property>
+  </action>
+  <action name="actionCreators">
+   <property name="text">
+    <string>Creators</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

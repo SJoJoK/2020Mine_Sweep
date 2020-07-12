@@ -44,9 +44,15 @@ private:
     std::shared_ptr<ICommandBase> m_cmd_restart;
     std::shared_ptr<ICommandBase> m_cmd_left;
 	std::shared_ptr<ICommandBase> m_cmd_right;
+    std::shared_ptr<ICommandBase> m_cmd_setting;
     std::shared_ptr<MainWindowPropertySink> m_sink_property;
     std::shared_ptr<MainWindowCommandSink> m_sink_command;
     std::shared_ptr<Block> B;
+private slots:
+    void set_junior();
+    //void set_senior();
+    //void set_middle();
+    //void show_creators();
 
 };
 #endif // MAINWINDOW_H

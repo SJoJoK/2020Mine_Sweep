@@ -1,4 +1,4 @@
-#include "parameter.h"
+﻿#include "parameter.h"
 
 BlockParameter::BlockParameter(int a, int b, int c)
 {
@@ -64,4 +64,29 @@ PosParameter::PosParameter(const PosParameter& src):i(src.i),j(src.j){
 PosParameter::PosParameter(PosParameter&& src){
     i = static_cast<int&&>(src.i);
     j = static_cast<int&&>(src.j);
+}
+
+SettingParameter::SettingParameter(SETTING x){
+    this->setting=x;
+}
+SettingParameter& SettingParameter::operator=(const SettingParameter &src){
+    if( this != &src ) {
+        this->setting=src.setting;
+    }
+    return *this;
+}
+SettingParameter& SettingParameter::operator=(SettingParameter &&src){
+    if( this != &src ) {
+        this->setting=src.setting;
+    }
+    return *this;
+}
+SettingParameter::SettingParameter() throw(){
+
+}
+SettingParameter::SettingParameter(const SettingParameter& src):setting(src.setting){
+
+}
+SettingParameter::SettingParameter(SettingParameter&& src){
+    setting = static_cast<SETTING&&>(src.setting);
 }
