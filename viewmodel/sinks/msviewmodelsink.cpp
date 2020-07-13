@@ -23,4 +23,9 @@ void MSViewModelSink::OnPropertyChanged(const std::string &str)
     {
         m_pVM->Fire_OnPropertyChanged(str);
     }
+    //ccx 7.12
+    if(str == "addrank")
+    {
+        m_pVM->Fire_OnPropertyChanged(str);
+    }
 }

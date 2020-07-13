@@ -95,5 +95,87 @@ bool MSDataModel::resetblock(SETTING setting, int row, int col, int boom_num){
     }
     Fire_OnPropertyChanged("block");
 	return true;
+}
+//ccx 7.13
+bool rankadd(UserParameter userinfo){
+    //construct vector
+    std::vector<UserParameter> userrank;
+    userrank.push_back(userinfo);
 
+    if(userinfo.level == "JUNIOR"){
+        std::ifstream file1(":rank/rank/JUNIOR.txt");
+        if(!file1){
+            qDebug()<<"read file error!";
+        }
+        else{
+            while(file1>>userinfo.name && file1>>userinfo.time){
+                userrank.push_back(userinfo);
+            }
+        }
+        sort(userrank.begin(),userrank.end(),sort_stol);
+        file1.close();//read finished
+
+        std::ofstream file2(":rank/rank/JUNIOR.txt");
+        if(!file2){
+            qDebug()<<"write file error!";
+        }
+        else{
+            for(std::vector<UserParameter>::iterator iter=userrank.begin(); iter != userrank.end(); iter++){
+                file2<<iter->name<<' '<<iter->time<<std::endl;
+            }
+        }
+        file2.close();//write finished
+    }
+
+    if(userinfo.level == "MIDDLE"){
+        std::ifstream file1(":rank/rank/MIDDLE.txt");
+        if(!file1){
+            qDebug()<<"read file error!";
+        }
+        else{
+            while(file1>>userinfo.name && file1>>userinfo.time){
+                userrank.push_back(userinfo);
+            }
+        }
+        sort(userrank.begin(),userrank.end(),sort_stol);
+        file1.close();//read finished
+
+        std::ofstream file2(":rank/rank/MIDDLE.txt");
+        if(!file2){
+            qDebug()<<"write file error!";
+        }
+        else{
+            for(std::vector<UserParameter>::iterator iter=userrank.begin(); iter != userrank.end(); iter++){
+                file2<<iter->name<<' '<<iter->time<<std::endl;
+            }
+        }
+        file2.close();//write finished
+    }
+
+    if(userinfo.level == "SENIOR"){
+        std::ifstream file1(":rank/rank/SENIOR.txt");
+        if(!file1){
+            qDebug()<<"read file error!";
+        }
+        else{
+            while(file1>>userinfo.name && file1>>userinfo.time){
+                userrank.push_back(userinfo);
+            }
+        }
+        sort(userrank.begin(),userrank.end(),sort_stol);
+        file1.close();//read finished
+
+        std::ofstream file2(":rank/rank/SENIOR.txt");
+        if(!file2){
+            qDebug()<<"write file error!";
+        }
+        else{
+            for(std::vector<UserParameter>::iterator iter=userrank.begin(); iter != userrank.end(); iter++){
+                file2<<iter->name<<' '<<iter->time<<std::endl;
+            }
+        }
+        file2.close();//write finished
+    }
+
+    return 0;
 }

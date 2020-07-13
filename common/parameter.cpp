@@ -103,7 +103,7 @@ SettingParameter::SettingParameter(SettingParameter&& src){
     boom_num = static_cast<int&&>(src.boom_num);
 }
 
-UserParameter() throw()
+UserParameter::UserParameter() throw()
 {
 
 }
@@ -111,17 +111,19 @@ UserParameter::UserParameter(const UserParameter& src)
 {
     this->name=src.name;
     this->time=src.time;
+    this->level=src.level;
 }
 UserParameter::UserParameter(UserParameter&& src)
 {
-    name=static_cast<QString&&>(src.name);
+    name=static_cast<std::string&&>(src.name);
     time=static_cast<int&&>(src.time);
 }
 
-UserParameter::UserParameter(QString name, int time)
+UserParameter::UserParameter(std::string name, int time, std::string level)
 {
     this->name=name;
     this->time=time;
+    this->level=level;
 }
 UserParameter& UserParameter::operator=(const UserParameter& src)
 {
@@ -129,6 +131,7 @@ UserParameter& UserParameter::operator=(const UserParameter& src)
     {
         this->name=src.name;
         this->time=src.time;
+        this->level=src.level;
     }
     return *this;
 }
@@ -138,6 +141,16 @@ UserParameter& UserParameter::operator=(UserParameter&& src)
     {
         this->name=src.name;
         this->time=src.time;
+        this->level=src.level;
     }
     return *this;
+}
+bool sort_stol(const UserParameter& U1, const UserParameter& U2){
+    if(U1.time<U2.time){
+        return 1;
+    }
+    else if((U1.time==U2.time)&&(U1.name<U2.name)){
+        return 1;
+    }
+    return 0;
 }

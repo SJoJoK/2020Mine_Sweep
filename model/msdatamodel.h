@@ -4,6 +4,9 @@
 #include"common/parameter.h"
 #include"../common/block.h"
 #include <QtDebug>
+#include <fstream>
+#include <cmath>
+#include <vector>
 
 class MSDataModel : public Proxy_PropertyNotification<MSDataModel>
 {
@@ -14,6 +17,7 @@ public:
     bool leftblock(int x_pos, int y_pos);
     bool rightblock(int x_pos, int y_pos);
     bool resetblock(SETTING setting,int row, int col, int boom_num);
+    bool rankadd(UserParameter userinfo);
 private:
     std::shared_ptr<Block> b;
 };
