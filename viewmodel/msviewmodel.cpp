@@ -5,6 +5,7 @@ MSViewModel::MSViewModel() :
                                 m_cmd_left(std::make_shared<LeftBlockCommand>(this)),
                                 m_cmd_right(std::make_shared<RightBlockCommand>(this)),
                                 m_cmd_resetblock(std::make_shared<ResetBlockCommand>(this)),
+                                m_cmd_rankadd(std::make_shared<RankAddCommand>(this)),
                                 m_sink(std::make_shared<MSViewModelSink>(this))
 {
 }
@@ -37,6 +38,11 @@ std::shared_ptr<ICommandBase> MSViewModel::get_resetblock_command() throw()
 {
     return std::static_pointer_cast<ICommandBase>(m_cmd_resetblock );
 }
+//ccx 7.13
+std::shared_ptr<ICommandBase> MSViewModel::get_rankadd_command() throw()
+{
+    return std::static_pointer_cast<ICommandBase>(m_cmd_rankadd );
+}
 
 std::shared_ptr<Block> MSViewModel ::get_block()
 {
@@ -60,4 +66,7 @@ bool MSViewModel::rightblock(int x_pos, int y_pos)
 }
 bool MSViewModel::resetblock(SETTING setting,int row, int col, int boom_num){
     return m_MSModel->resetblock(setting,row,col,boom_num);
+}
+bool MSViewModel::rankadd(UserParameter userinfo){
+    return m_MSModel->rankadd(userinfo);
 }

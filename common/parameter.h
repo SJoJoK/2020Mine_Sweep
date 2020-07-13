@@ -1,6 +1,7 @@
 ﻿#ifndef PARAMETER_H
 #define PARAMETER_H
 #include<QString>
+#include<string>
 enum SETTING { JUNIOR, MIDDLE, SENIOR, CUSTOM };
 
 class BlockParameter
@@ -53,15 +54,17 @@ public:
 
 class UserParameter{
 public:
-    QString name;
+    std::string name;
     int time;
+    std::string level;//JUNIOR/MIDDEL/SENIOR
 public:
     UserParameter() throw();
     UserParameter(const UserParameter& src);
     UserParameter(UserParameter&& src);
 
-    UserParameter(QString name, int time);
+    UserParameter(std::string name, int time, std::string level);
     UserParameter& operator=(const UserParameter& src);
     UserParameter& operator=(UserParameter&& src);
 };
+    bool sort_stol(const UserParameter& U1, const UserParameter& U2);
 #endif // PARAMETER_H
