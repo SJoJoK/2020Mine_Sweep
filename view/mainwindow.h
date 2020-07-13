@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QPainter>
 #include <QTimer>
-#include <QHBoxLayout>
+#include <QLayout>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>

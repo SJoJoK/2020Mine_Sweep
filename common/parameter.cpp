@@ -103,7 +103,7 @@ SettingParameter::SettingParameter(SettingParameter&& src){
     boom_num = static_cast<int&&>(src.boom_num);
 }
 
-UserParameter() throw()
+UserParameter::UserParameter() throw()
 {
 
 }

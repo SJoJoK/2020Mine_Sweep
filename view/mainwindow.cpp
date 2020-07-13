@@ -79,9 +79,9 @@ void MainWindow::set_custom()
 {
     QHBoxLayout *layout =new QHBoxLayout;
     QDialog *dialog = new QDialog(this);
-    QString s1="请输入行数：";
-    QString s2="请输入列数：";
-    QString s3="请输入炸弹数：";
+    QString s1="Row:";
+    QString s2="Col:";
+    QString s3="Number of booms:";
 
     QLabel *lable1= new QLabel(s1);
     QLabel *lable2= new QLabel(s2);
@@ -98,7 +98,7 @@ void MainWindow::set_custom()
     layout->addWidget(edit3);
     layout->addWidget(button);
     dialog->setLayout(layout);
-    dialog->setWindowTitle("custom");
+    dialog->setWindowTitle("Custom");
     dialog->show();
     connect(button,&QPushButton::clicked,this,[=]{
         QString str1=edit1->text();
@@ -129,9 +129,9 @@ void MainWindow::show_ranking()
     QLabel *lable1=new QLabel();
     QLabel *lable2=new QLabel();
     QLabel *lable3=new QLabel();
-    QString s1="junior";
-    QString s2="middle";
-    QString s3="senior";
+    QString s1="junior\n";
+    QString s2="middle\n";
+    QString s3="senior\n";
 
     QFile file1(":rank/rank/JUNIOR.txt");
     if(!file1.open(QIODevice::ReadOnly|QIODevice::Text))
@@ -139,7 +139,7 @@ void MainWindow::show_ranking()
     for(int i=0;i<10;i++){
         QByteArray line=file1.readLine();
             QString str(line);
-            s1.append('\n');
+            //s1.append('\n');
             s1.append(str);
         }
     QFile file2(":rank/rank/MIDDLE.txt");
@@ -148,7 +148,7 @@ void MainWindow::show_ranking()
     for(int i=0;i<10;i++){
         QByteArray line=file2.readLine();
             QString str(line);
-            s2.append('\n');
+            //s2.append('\n');
             s2.append(str);
         }
     QFile file3(":rank/rank/SENIOR.txt");
@@ -157,7 +157,7 @@ void MainWindow::show_ranking()
     for(int i=0;i<10;i++){
         QByteArray line=file3.readLine();
             QString str(line);
-            s3.append('\n');
+            //s3.append('\n');
             s3.append(str);
         }
     lable1->setText(s1);
@@ -167,7 +167,7 @@ void MainWindow::show_ranking()
     layout->addWidget(lable2);
     layout->addWidget(lable3);
     dialog->setLayout(layout);
-    dialog->setWindowTitle("ranking");
+    dialog->setWindowTitle("Ranking");
     dialog->show();
     //QMessageBox::information(NULL,"ranking",s3);
 }
@@ -180,9 +180,9 @@ void MainWindow::show_win()
 {
     QHBoxLayout *layout =new QHBoxLayout;
     QDialog *dialog = new QDialog(this);
-    QString s1="恭喜！您用时";
+    QString s1="Congratulations! You use ";
     QString s2=QString::number(B->get_time());
-    QString s3="秒，请留下您的姓名：";
+    QString s3="s. Please leave your name:";
     s1.append(s2);
     s1.append(s3);
     QLabel *lable= new QLabel(s1);
