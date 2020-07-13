@@ -1,5 +1,6 @@
 ﻿#ifndef PARAMETER_H
 #define PARAMETER_H
+#include<QString>
 enum SETTING { JUNIOR, MIDDLE, SENIOR, CUSTOM };
 
 class BlockParameter
@@ -49,4 +50,18 @@ public:
     SettingParameter& operator=(SettingParameter&& src);
 };
 //ccx 7.12 add row/col/boom_num
+
+class UserParameter{
+public:
+    QString name;
+    int time;
+public:
+    UserParameter() throw();
+    UserParameter(const UserParameter& src);
+    UserParameter(UserParameter&& src);
+
+    UserParameter(QString name, int time);
+    UserParameter& operator=(const UserParameter& src);
+    UserParameter& operator=(UserParameter&& src);
+};
 #endif // PARAMETER_H

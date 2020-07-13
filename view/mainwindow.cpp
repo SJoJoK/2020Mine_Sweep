@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionCreators,SIGNAL(triggered(bool)),this,SLOT(show_creators()));
     //connect(ui->actionCHEAT,SIGNAL(triggered(bool)),this,SLOT(set_cheat()));
     //connect(ui->actionCustom,SIGNAL(triggered(bool)),this,SLOT(set_custom()));
-    connect(ui->actionRanking,SIGNAL(triggered(bool)),this,SLOT(show_ranking()));
+    //connect(ui->actionRanking,SIGNAL(triggered(bool)),this,SLOT(show_ranking()));
     runtime=new QTimer(this);
     connect(runtime,SIGNAL(timeout()),this,SLOT(on_secondadd()));
     runtime->start(1000);

@@ -102,3 +102,42 @@ SettingParameter::SettingParameter(SettingParameter&& src){
     col = static_cast<int&&>(src.col);
     boom_num = static_cast<int&&>(src.boom_num);
 }
+
+UserParameter() throw()
+{
+
+}
+UserParameter::UserParameter(const UserParameter& src)
+{
+    this->name=src.name;
+    this->time=src.time;
+}
+UserParameter::UserParameter(UserParameter&& src)
+{
+    name=static_cast<QString&&>(src.name);
+    time=static_cast<int&&>(src.time);
+}
+
+UserParameter::UserParameter(QString name, int time)
+{
+    this->name=name;
+    this->time=time;
+}
+UserParameter& UserParameter::operator=(const UserParameter& src)
+{
+    if(this!=&src)
+    {
+        this->name=src.name;
+        this->time=src.time;
+    }
+    return *this;
+}
+UserParameter& UserParameter::operator=(UserParameter&& src)
+{
+    if(this!=&src)
+    {
+        this->name=src.name;
+        this->time=src.time;
+    }
+    return *this;
+}

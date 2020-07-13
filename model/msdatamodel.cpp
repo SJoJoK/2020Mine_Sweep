@@ -88,7 +88,7 @@ bool MSDataModel::resetblock(SETTING setting, int row, int col, int boom_num){
         b->re_construct(16,16,40);
     }
     if(setting == SENIOR){
-        b->re_construct(32,16,99);
+        b->re_construct(16,32,99);
     }
     if(setting == CUSTOM){
         b->re_construct(row, col, boom_num);
