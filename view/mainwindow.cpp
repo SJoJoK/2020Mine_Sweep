@@ -134,7 +134,7 @@ void MainWindow::show_ranking()
     QString s2="middle\n";
     QString s3="senior\n";
 
-    QFile file1(":rank/rank/JUNIOR.txt");
+    QFile file1("JUNIOR");
     if(!file1.open(QIODevice::ReadOnly|QIODevice::Text))
         qDebug()<<"cant read from junior.txt"<<endl;
     for(int i=0;i<10;i++){
@@ -143,7 +143,7 @@ void MainWindow::show_ranking()
             //s1.append('\n');
             s1.append(str);
         }
-    QFile file2(":rank/rank/MIDDLE.txt");
+    QFile file2("MIDDLE");
     if(!file2.open(QIODevice::ReadOnly|QIODevice::Text))
         qDebug()<<"cant read from middle.txt"<<endl;
     for(int i=0;i<10;i++){
@@ -152,7 +152,7 @@ void MainWindow::show_ranking()
             //s2.append('\n');
             s2.append(str);
         }
-    QFile file3(":rank/rank/SENIOR.txt");
+    QFile file3("SENIOR");
     if(!file3.open(QIODevice::ReadOnly|QIODevice::Text))
         qDebug()<<"cant read from senior.txt"<<endl;
     for(int i=0;i<10;i++){

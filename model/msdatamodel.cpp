@@ -107,7 +107,7 @@ bool MSDataModel::rankadd(UserParameter userinfo){
     userrank.push_back(userinfo);
 
     if(b->get_setting()==JUNIOR){
-        std::ifstream file1(":rank/rank/JUNIOR.txt");
+        std::ifstream file1("JUNIOR");
         if(!file1){
             qDebug()<<"read file error!";
         }
@@ -119,7 +119,7 @@ bool MSDataModel::rankadd(UserParameter userinfo){
         sort(userrank.begin(),userrank.end(),sort_stol);
         file1.close();//read finished
 
-        std::ofstream file2(":rank/rank/JUNIOR.txt");
+        std::ofstream file2("JUNIOR");
         if(!file2){
             qDebug()<<"write file error!";
         }
@@ -132,7 +132,7 @@ bool MSDataModel::rankadd(UserParameter userinfo){
     }
 
     if(b->get_setting()==MIDDLE){
-        std::ifstream file1(":rank/rank/MIDDLE.txt");
+        std::ifstream file1("MIDDLE");
         if(!file1){
             qDebug()<<"read file error!";
         }
@@ -144,7 +144,7 @@ bool MSDataModel::rankadd(UserParameter userinfo){
         sort(userrank.begin(),userrank.end(),sort_stol);
         file1.close();//read finished
 
-        std::ofstream file2(":rank/rank/MIDDLE.txt");
+        std::ofstream file2("MIDDLE");
         if(!file2){
             qDebug()<<"write file error!";
         }
@@ -157,7 +157,7 @@ bool MSDataModel::rankadd(UserParameter userinfo){
     }
 
     if(b->get_setting()==SENIOR){
-        std::ifstream file1(":rank/rank/SENIOR.txt");
+        std::ifstream file1("SENIOR");
         if(!file1){
             qDebug()<<"read file error!";
         }
@@ -169,7 +169,7 @@ bool MSDataModel::rankadd(UserParameter userinfo){
         sort(userrank.begin(),userrank.end(),sort_stol);
         file1.close();//read finished
 
-        std::ofstream file2(":rank/rank/SENIOR.txt");
+        std::ofstream file2("SENIOR");
         if(!file2){
             qDebug()<<"write file error!";
         }
