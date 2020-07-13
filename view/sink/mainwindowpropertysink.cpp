@@ -14,7 +14,7 @@ void MainWindowPropertySink::OnPropertyChanged(const std::string& str)
     if( str == "win" )
     {
 		m_pW->update();
-        //m_pW->show_win();
+        m_pW->show_win();
         //QMessageBox::information(NULL,"Congratulation","you win!");
     }
     if( str == "lose")

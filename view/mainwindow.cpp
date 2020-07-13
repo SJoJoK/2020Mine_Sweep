@@ -17,9 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionMiddle, SIGNAL(triggered(bool)),this,SLOT(set_middle()));
     connect(ui->actionSenior, SIGNAL(triggered(bool)),this,SLOT(set_senior()));
     connect(ui->actionCreators,SIGNAL(triggered(bool)),this,SLOT(show_creators()));
-    //connect(ui->actionCHEAT,SIGNAL(triggered(bool)),this,SLOT(set_cheat()));
-    //connect(ui->actionCustom,SIGNAL(triggered(bool)),this,SLOT(set_custom()));
-    //connect(ui->actionRanking,SIGNAL(triggered(bool)),this,SLOT(show_ranking()));
+    connect(ui->actionCHEAT,SIGNAL(triggered(bool)),this,SLOT(set_cheat()));
+    connect(ui->actionCustom,SIGNAL(triggered(bool)),this,SLOT(set_custom()));
+    connect(ui->actionRanking,SIGNAL(triggered(bool)),this,SLOT(show_ranking()));
     runtime=new QTimer(this);
     connect(runtime,SIGNAL(timeout()),this,SLOT(on_secondadd()));
     runtime->start(1000);
@@ -42,7 +42,8 @@ void MainWindow::init()
 
 void MainWindow::on_secondadd()
 {
-    B->change_time(1);
+    if(B->get_win()==false)
+        B->change_time(1);
 }
 
 void MainWindow::set_junior()
@@ -66,6 +67,53 @@ void MainWindow::set_senior()
     m_cmd_setting->Exec();
 }
 
+void MainWindow::set_cheat()
+{
+    if(B->get_cheat()==true)
+        B->set_cheat(false);
+    else
+        B->set_cheat(true);
+}
+
+void MainWindow::set_custom()
+{
+    QHBoxLayout *layout =new QHBoxLayout;
+    QDialog *dialog = new QDialog(this);
+    QString s1="请输入行数：";
+    QString s2="请输入列数：";
+    QString s3="请输入炸弹数：";
+
+    QLabel *lable1= new QLabel(s1);
+    QLabel *lable2= new QLabel(s2);
+    QLabel *lable3= new QLabel(s3);
+    QLineEdit *edit1 = new QLineEdit;
+    QLineEdit *edit2 = new QLineEdit;
+    QLineEdit *edit3 = new QLineEdit;
+    QPushButton *button = new QPushButton("OK");
+    layout->addWidget(lable1);
+    layout->addWidget(edit1);
+    layout->addWidget(lable2);
+    layout->addWidget(edit2);
+    layout->addWidget(lable3);
+    layout->addWidget(edit3);
+    layout->addWidget(button);
+    dialog->setLayout(layout);
+    dialog->setWindowTitle("custom");
+    dialog->show();
+    connect(button,&QPushButton::clicked,this,[=]{
+        QString str1=edit1->text();
+        QString str2=edit2->text();
+        QString str3=edit3->text();
+        std::any param (std::make_any<BlockParameter>());
+        BlockParameter& blk= std::any_cast<BlockParameter&>(param);
+        blk.row=str1.toInt();
+        blk.col=str2.toInt();
+        blk.boom_num=str3.toInt();
+        m_cmd_setting->SetParameter(param);
+        m_cmd_setting->Exec();
+    });
+}
+
 void MainWindow::show_creators()
 {
     QMessageBox::about(this, tr("About the game"), tr("The <b>Mine_Sweeping</b> is created by <br>"
@@ -73,11 +121,89 @@ void MainWindow::show_creators()
                                                          "<br>Chen Chongxuan"
                                                          "<br>Lu Jiayu"));
 }
+
+void MainWindow::show_ranking()
+{
+    QHBoxLayout *layout=new QHBoxLayout;
+    QDialog *dialog = new QDialog(this);
+    QLabel *lable1=new QLabel();
+    QLabel *lable2=new QLabel();
+    QLabel *lable3=new QLabel();
+    QString s1="junior";
+    QString s2="middle";
+    QString s3="senior";
+
+    QFile file1(":rank/rank/JUNIOR.txt");
+    if(!file1.open(QIODevice::ReadOnly|QIODevice::Text))
+        qDebug()<<"cant read from junior.txt"<<endl;
+    for(int i=0;i<10;i++){
+        QByteArray line=file1.readLine();
+            QString str(line);
+            s1.append('\n');
+            s1.append(str);
+        }
+    QFile file2(":rank/rank/MIDDLE.txt");
+    if(!file2.open(QIODevice::ReadOnly|QIODevice::Text))
+        qDebug()<<"cant read from middle.txt"<<endl;
+    for(int i=0;i<10;i++){
+        QByteArray line=file2.readLine();
+            QString str(line);
+            s2.append('\n');
+            s2.append(str);
+        }
+    QFile file3(":rank/rank/SENIOR.txt");
+    if(!file3.open(QIODevice::ReadOnly|QIODevice::Text))
+        qDebug()<<"cant read from senior.txt"<<endl;
+    for(int i=0;i<10;i++){
+        QByteArray line=file3.readLine();
+            QString str(line);
+            s3.append('\n');
+            s3.append(str);
+        }
+    lable1->setText(s1);
+    lable2->setText(s2);
+    lable3->setText(s3);
+    layout->addWidget(lable1);
+    layout->addWidget(lable2);
+    layout->addWidget(lable3);
+    dialog->setLayout(layout);
+    dialog->setWindowTitle("ranking");
+    dialog->show();
+    //QMessageBox::information(NULL,"ranking",s3);
+}
 void MainWindow::time_init()
 {
     B->set_time(0);
 }
 
+void MainWindow::show_win()
+{
+    QHBoxLayout *layout =new QHBoxLayout;
+    QDialog *dialog = new QDialog(this);
+    QString s1="恭喜！您用时";
+    QString s2=QString::number(B->get_time());
+    QString s3="秒，请留下您的姓名：";
+    s1.append(s2);
+    s1.append(s3);
+    QLabel *lable= new QLabel(s1);
+    QLineEdit *edit = new QLineEdit;
+    QPushButton *button = new QPushButton("OK");
+    layout->addWidget(lable);
+    layout->addWidget(edit);
+    layout->addWidget(button);
+    dialog->setLayout(layout);
+    dialog->setWindowTitle("WIN");
+    dialog->show();
+    connect(button,&QPushButton::clicked,this,[=]{
+        QString str=edit->text();
+        std::any param (std::make_any<UserParameter>());
+        UserParameter& user= std::any_cast<UserParameter&>(param);
+        user.name=str;
+        user.time=B->get_time();
+        m_cmd_rank->SetParameter(param);
+        m_cmd_rank->Exec();
+    });
+}
 
 void MainWindow::set_restart_command(const std::shared_ptr<ICommandBase> &cmd) throw()
 {
@@ -94,6 +220,10 @@ void MainWindow::set_rightblock_command(const std::shared_ptr<ICommandBase> &cmd
 void MainWindow::set_setting_command(const std::shared_ptr<ICommandBase> &cmd) throw()
 {
     m_cmd_setting = cmd;
+}
+void MainWindow::set_rank_command(const std::shared_ptr<ICommandBase> &cmd) throw()
+{
+    m_cmd_rank = cmd;
 }
 std::shared_ptr<IPropertyNotification> MainWindow::get_propertty_sink() throw()
 {
@@ -142,31 +272,67 @@ void MainWindow :: paintEvent(QPaintEvent * event)
         paint_title(paint_my_window);
         if(B->get_play()==true)
 		{
-            for(int i=0;i<B->get_row();i++){
-                for(int j=0;j<B->get_col();j++){
-                    if(B->p[i][j].get_show()==false){
-						if (B->p[i][j].get_flag() == true)
-							painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, red_flag, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
-						else if (B->p[i][j].get_mark() == true)
-							painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, mark, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
-                        else painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_close,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
-                    }
-                    else{
-                        if(B->p[i][j].get_boom()==true){
-							painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, boom, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+            if(B->get_cheat()==false){
+                for(int i=0;i<B->get_row();i++){
+                    for(int j=0;j<B->get_col();j++){
+                        if(B->p[i][j].get_show()==false){
+                            if (B->p[i][j].get_flag() == true)
+                                painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, red_flag, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+                            else if (B->p[i][j].get_mark() == true)
+                                painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, mark, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+                            else painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_close,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
                         }
                         else{
-                            switch(B->p[i][j].get_sur())
-                            {
-                            case 0:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_open,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 1:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_1,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 2:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_2,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 3:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_3,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 4:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_4,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 5:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_5,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 6:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_6,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 7:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_7,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
-                            case 8:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_8,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                            if(B->p[i][j].get_boom()==true){
+                                painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, boom, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+                            }
+                            else{
+                                switch(B->p[i][j].get_sur())
+                                {
+                                case 0:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_open,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 1:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_1,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 2:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_2,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 3:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_3,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 4:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_4,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 5:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_5,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 6:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_6,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 7:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_7,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 8:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_8,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else{
+                for(int i=0;i<B->get_row();i++){
+                    for(int j=0;j<B->get_col();j++){
+                        if(B->p[i][j].get_show()==false){
+                            if(B->p[i][j].get_boom()==true)
+                                painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, boom, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+                            else if (B->p[i][j].get_flag() == true)
+                                painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, red_flag, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+                            else if (B->p[i][j].get_mark() == true)
+                                painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, mark, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+                            else painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_close,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);
+                        }
+                        else{
+                            if(B->p[i][j].get_boom()==true){
+                                painter.drawPixmap(j*BLOCK_LENGTH, i*BLOCK_HEIGHT + TITLE_HEIGHT, boom, 0, 0, BLOCK_LENGTH, BLOCK_HEIGHT);
+                            }
+                            else{
+                                switch(B->p[i][j].get_sur())
+                                {
+                                case 0:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,block_open,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 1:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_1,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 2:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_2,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 3:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_3,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 4:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_4,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 5:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_5,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 6:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_6,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 7:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_7,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                case 8:painter.drawPixmap(j*BLOCK_LENGTH,i*BLOCK_HEIGHT+TITLE_HEIGHT,blk_8,0,0,BLOCK_LENGTH,BLOCK_HEIGHT);break;
+                                }
                             }
                         }
                     }
