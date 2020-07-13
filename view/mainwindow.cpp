@@ -16,8 +16,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionJunior, SIGNAL(triggered(bool)), this, SLOT(set_junior()));
     connect(ui->actionMiddle, SIGNAL(triggered(bool)),this,SLOT(set_middle()));
     connect(ui->actionSenior, SIGNAL(triggered(bool)),this,SLOT(set_senior()));
-    //connect(ui->actionCreators, SIGNAL(triggered(bool)),this,SLOT(show_creators()));
     connect(ui->actionCreators,SIGNAL(triggered(bool)),this,SLOT(show_creators()));
+    //connect(ui->actionCHEAT,SIGNAL(triggered(bool)),this,SLOT(set_cheat()));
+    //connect(ui->actionCustom,SIGNAL(triggered(bool)),this,SLOT(set_custom()));
+    connect(ui->actionRanking,SIGNAL(triggered(bool)),this,SLOT(show_ranking()));
     runtime=new QTimer(this);
     connect(runtime,SIGNAL(timeout()),this,SLOT(on_secondadd()));
     runtime->start(1000);

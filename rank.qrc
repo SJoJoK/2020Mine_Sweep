@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/rank">
+        <file>rank/JUNIOR.txt</file>
+        <file>rank/MIDDLE.txt</file>
+        <file>rank/SENIOR.txt</file>
+    </qresource>
+</RCC>

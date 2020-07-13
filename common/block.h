@@ -18,9 +18,11 @@ public:
 	bool get_win();
 	bool get_lose();
 	bool get_lock();
+    bool get_cheat();
 	void set_play(bool x);
 	void set_win(bool x);
 	void set_lose(bool x);
+    void set_cheat(bool x);
     void set_flag_num(int num);
     void change_flag_num(int d_num);
     void set_time(int time);
@@ -40,6 +42,7 @@ private:
 	bool is_win;
 	bool is_lose;
 	bool is_lock;
+    bool is_cheat;
     //ccx 7.12
     int flag_num;
 };
