@@ -4,6 +4,7 @@
 #include <QtMath>
 #include <QTime>
 #include <qdebug.h>
+#include "parameter.h"
 class Block
 {
 public:
@@ -19,6 +20,8 @@ public:
 	bool get_lose();
 	bool get_lock();
     bool get_cheat();
+    SETTING get_setting();
+    void set_setting(SETTING x);
 	void set_play(bool x);
 	void set_win(bool x);
 	void set_lose(bool x);
@@ -43,6 +46,7 @@ private:
 	bool is_lose;
 	bool is_lock;
     bool is_cheat;
+    SETTING setting;
     //ccx 7.12
     int flag_num;
 };

@@ -1,7 +1,7 @@
-#include "rankaddcommand.h"
+﻿#include "rankaddcommand.h"
 #include "../msviewmodel.h"
 //ccx 7.12
-RankAddCommand::RankAddCommand(MSViewModel* p) throw(): m_pVM(p), m_param("0",0,"0")
+RankAddCommand::RankAddCommand(MSViewModel* p) throw(): m_pVM(p), m_param("0",0)
 {
 
 }

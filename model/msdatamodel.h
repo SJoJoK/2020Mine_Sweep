@@ -7,6 +7,7 @@
 #include <fstream>
 #include <cmath>
 #include <vector>
+#include <QFile>
 
 class MSDataModel : public Proxy_PropertyNotification<MSDataModel>
 {

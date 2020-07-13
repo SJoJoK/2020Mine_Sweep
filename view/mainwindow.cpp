@@ -73,6 +73,7 @@ void MainWindow::set_cheat()
         B->set_cheat(false);
     else
         B->set_cheat(true);
+    this->update();
 }
 
 void MainWindow::set_custom()
@@ -104,13 +105,13 @@ void MainWindow::set_custom()
         QString str1=edit1->text();
         QString str2=edit2->text();
         QString str3=edit3->text();
-        std::any param (std::make_any<BlockParameter>());
-        BlockParameter& blk= std::any_cast<BlockParameter&>(param);
-        blk.row=str1.toInt();
-        blk.col=str2.toInt();
-        blk.boom_num=str3.toInt();
+        int row=str1.toInt();
+        int col=str2.toInt();
+        int boom_num=str3.toInt();
+        std::any param(std::make_any<SettingParameter>(CUSTOM, row, col, boom_num));
         m_cmd_setting->SetParameter(param);
         m_cmd_setting->Exec();
+        dialog->close();
     });
 }
 
@@ -178,31 +179,55 @@ void MainWindow::time_init()
 
 void MainWindow::show_win()
 {
-    QHBoxLayout *layout =new QHBoxLayout;
-    QDialog *dialog = new QDialog(this);
-    QString s1="Congratulations! You use ";
-    QString s2=QString::number(B->get_time());
-    QString s3="s. Please leave your name:";
-    s1.append(s2);
-    s1.append(s3);
-    QLabel *lable= new QLabel(s1);
-    QLineEdit *edit = new QLineEdit;
-    QPushButton *button = new QPushButton("OK");
-    layout->addWidget(lable);
-    layout->addWidget(edit);
-    layout->addWidget(button);
-    dialog->setLayout(layout);
-    dialog->setWindowTitle("WIN");
-    dialog->show();
-    connect(button,&QPushButton::clicked,this,[=]{
-        QString str=edit->text();
-        std::any param (std::make_any<UserParameter>());
-        UserParameter& user= std::any_cast<UserParameter&>(param);
-        user.name=str;
-        user.time=B->get_time();
-        m_cmd_rank->SetParameter(param);
-        m_cmd_rank->Exec();
-    });
+    if(B->get_setting()!=CUSTOM)
+    {
+        QHBoxLayout *layout =new QHBoxLayout;
+        QDialog *dialog = new QDialog(this);
+        QString s1="Congratulations! You use ";
+        QString s2=QString::number(B->get_time());
+        QString s3="s. Please leave your name:";
+        s1.append(s2);
+        s1.append(s3);
+        QLabel *lable= new QLabel(s1);
+        QLineEdit *edit = new QLineEdit;
+        QPushButton *button = new QPushButton("OK");
+        layout->addWidget(lable);
+        layout->addWidget(edit);
+        layout->addWidget(button);
+        dialog->setLayout(layout);
+        dialog->setWindowTitle("WIN");
+        dialog->show();
+        connect(button,&QPushButton::clicked,this,[=]{
+            QString str=edit->text();
+            std::any param (std::make_any<UserParameter>());
+            UserParameter& user= std::any_cast<UserParameter&>(param);
+            user.name = str.toStdString();
+            user.time=B->get_time();
+            m_cmd_rank->SetParameter(param);
+            m_cmd_rank->Exec();
+            dialog->close();
+        });
+    }
+    else
+    {
+        QVBoxLayout *layout =new QVBoxLayout;
+        QDialog *dialog = new QDialog(this);
+        QString s1="Congratulations! You use ";
+        QString s2=QString::number(B->get_time());
+        QString s3="s";
+        s1.append(s2);
+        s1.append(s3);
+        QLabel *lable= new QLabel(s1);
+        QPushButton *button = new QPushButton("OK");
+        layout->addWidget(lable);
+        layout->addWidget(button);
+        dialog->setLayout(layout);
+        dialog->setWindowTitle("WIN");
+        dialog->show();
+        connect(button,&QPushButton::clicked,this,[=]{
+            dialog->close();
+        });
+    }
 }
 
 void MainWindow::set_restart_command(const std::shared_ptr<ICommandBase> &cmd) throw()

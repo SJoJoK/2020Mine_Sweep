@@ -49,6 +49,7 @@ Block::Block(int row, int col, int boom_num)
 	this->is_win = false;
 	this->is_lock = false;
     this->is_cheat = false;
+    this->setting = JUNIOR;
     qDebug()<<"Construction Complete";
 }
 
@@ -106,6 +107,7 @@ void Block::re_construct(int row, int col, int boom_num)
     this->is_win = false;
 	this->is_lock = false;
     this->is_cheat = false;
+    this->setting = JUNIOR;
     qDebug()<<"Construction Complete";
 }
 
@@ -157,6 +159,11 @@ bool Block::get_cheat()
 {
     return is_cheat;
 }
+
+SETTING Block::get_setting()
+{
+    return setting;
+}
 void Block::set_play(bool x)
 {
 	this->is_play = x;
@@ -180,6 +187,10 @@ void Block::set_cheat(bool x)
 void Block::set_flag_num(int num)
 {
     flag=num;
+}
+void Block::set_setting(SETTING x)
+{
+    this->setting=x;
 }
 void Block::change_flag_num(int d_num)
 {

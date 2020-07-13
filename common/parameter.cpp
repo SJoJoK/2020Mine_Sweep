@@ -93,7 +93,7 @@ SettingParameter& SettingParameter::operator=(SettingParameter &&src){
 SettingParameter::SettingParameter() throw(){
 
 }
-SettingParameter::SettingParameter(const SettingParameter& src):setting(src.setting){
+SettingParameter::SettingParameter(const SettingParameter& src):setting(src.setting),row(src.row),col(src.col),boom_num(src.boom_num){
 
 }
 SettingParameter::SettingParameter(SettingParameter&& src){
@@ -111,7 +111,6 @@ UserParameter::UserParameter(const UserParameter& src)
 {
     this->name=src.name;
     this->time=src.time;
-    this->level=src.level;
 }
 UserParameter::UserParameter(UserParameter&& src)
 {
@@ -119,11 +118,10 @@ UserParameter::UserParameter(UserParameter&& src)
     time=static_cast<int&&>(src.time);
 }
 
-UserParameter::UserParameter(std::string name, int time, std::string level)
+UserParameter::UserParameter(std::string name, int time)
 {
     this->name=name;
     this->time=time;
-    this->level=level;
 }
 UserParameter& UserParameter::operator=(const UserParameter& src)
 {
@@ -131,7 +129,6 @@ UserParameter& UserParameter::operator=(const UserParameter& src)
     {
         this->name=src.name;
         this->time=src.time;
-        this->level=src.level;
     }
     return *this;
 }
@@ -141,7 +138,6 @@ UserParameter& UserParameter::operator=(UserParameter&& src)
     {
         this->name=src.name;
         this->time=src.time;
-        this->level=src.level;
     }
     return *this;
 }

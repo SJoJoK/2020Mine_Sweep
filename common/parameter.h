@@ -56,13 +56,12 @@ class UserParameter{
 public:
     std::string name;
     int time;
-    std::string level;//JUNIOR/MIDDEL/SENIOR
 public:
     UserParameter() throw();
     UserParameter(const UserParameter& src);
     UserParameter(UserParameter&& src);
 
-    UserParameter(std::string name, int time, std::string level);
+    UserParameter(std::string name, int time);
     UserParameter& operator=(const UserParameter& src);
     UserParameter& operator=(UserParameter&& src);
 };

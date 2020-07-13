@@ -83,26 +83,30 @@ bool MSDataModel::rightblock(int x_pos, int y_pos){
 bool MSDataModel::resetblock(SETTING setting, int row, int col, int boom_num){
     if(setting == JUNIOR){
         b->re_construct(8,8,10);
+        b->set_setting(JUNIOR);
     }
     if(setting == MIDDLE){
         b->re_construct(16,16,40);
+        b->set_setting(MIDDLE);
     }
     if(setting == SENIOR){
         b->re_construct(16,32,99);
+        b->set_setting(SENIOR);
     }
     if(setting == CUSTOM){
         b->re_construct(row, col, boom_num);
+        b->set_setting(CUSTOM);
     }
     Fire_OnPropertyChanged("block");
 	return true;
 }
 //ccx 7.13
-bool rankadd(UserParameter userinfo){
+bool MSDataModel::rankadd(UserParameter userinfo){
     //construct vector
     std::vector<UserParameter> userrank;
     userrank.push_back(userinfo);
 
-    if(userinfo.level == "JUNIOR"){
+    if(b->get_setting()==JUNIOR){
         std::ifstream file1(":rank/rank/JUNIOR.txt");
         if(!file1){
             qDebug()<<"read file error!";
@@ -127,7 +131,7 @@ bool rankadd(UserParameter userinfo){
         file2.close();//write finished
     }
 
-    if(userinfo.level == "MIDDLE"){
+    if(b->get_setting()==MIDDLE){
         std::ifstream file1(":rank/rank/MIDDLE.txt");
         if(!file1){
             qDebug()<<"read file error!";
@@ -152,7 +156,7 @@ bool rankadd(UserParameter userinfo){
         file2.close();//write finished
     }
 
-    if(userinfo.level == "SENIOR"){
+    if(b->get_setting()==SENIOR){
         std::ifstream file1(":rank/rank/SENIOR.txt");
         if(!file1){
             qDebug()<<"read file error!";

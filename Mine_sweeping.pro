@@ -26,6 +26,7 @@ SOURCES += \
     view/sink/mainwindowcommandsink.cpp \
     view/sink/mainwindowpropertysink.cpp \
     viewmodel/commands/leftblock.cpp \
+    viewmodel/commands/rankaddcommand.cpp \
     viewmodel/commands/resetblockcommand.cpp \
     viewmodel/commands/restartcommand.cpp \
     viewmodel/commands/rightblockcommand.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     view/sink/mainwindowcommandsink.h \
     view/sink/mainwindowpropertysink.h \
     viewmodel/commands/leftblock.h \
+    viewmodel/commands/rankaddcommand.h \
     viewmodel/commands/resetblockcommand.h \
     viewmodel/commands/restartcommand.h \
     viewmodel/commands/rightblockcommand.h \
