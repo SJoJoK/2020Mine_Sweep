@@ -13,6 +13,7 @@ public:
     virtual void Exec();
 private:
     MSViewModel* m_pVM;
+    
     UserParameter m_param;
 
 };

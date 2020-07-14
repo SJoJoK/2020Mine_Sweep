@@ -1,4 +1,4 @@
-﻿#include "rightblockcommand.h"
+#include "rightblockcommand.h"
 #include "../msviewmodel.h"
 //ccx 7.11
 RightBlockCommand::RightBlockCommand(MSViewModel* p) throw(): m_pVM(p),m_rparam(3,3)
@@ -14,6 +14,7 @@ void RightBlockCommand::SetParameter(const std::any& param)
 
 void RightBlockCommand::Exec()
 {
+    
     int i,j;
     i = m_rparam.i;
     j = m_rparam.j;

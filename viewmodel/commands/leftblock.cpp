@@ -1,9 +1,8 @@
-﻿#include "leftblock.h"
+#include "leftblock.h"
 #include "../msviewmodel.h"
 //ccx 7.10
 LeftBlockCommand::LeftBlockCommand(MSViewModel* p) throw(): m_pVM(p),m_lparam(3,3)
 {
-
 }
 
 void LeftBlockCommand::SetParameter(const std::any& param)

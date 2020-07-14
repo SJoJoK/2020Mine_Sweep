@@ -1,4 +1,4 @@
-﻿#ifndef SQUARE_H
+#ifndef SQUARE_H
 #define SQUARE_H
 #include<QString>
 
@@ -16,6 +16,7 @@ public:
     void set_show(bool x);//ccx 7.10
     int get_sur();
     void set_sur(int sur);
+    
     //ccx 10.7
     int visit = 0;//has been visited during bset_show session or not
     QString show_info()
@@ -36,8 +37,8 @@ public:
 
 private:
     bool is_boom;
-    bool is_flag;
     bool is_mark;
+    bool is_flag;
     bool is_show;//ccx 7.10
     int sur_boom;
 };
