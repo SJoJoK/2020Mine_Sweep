@@ -1,4 +1,4 @@
-﻿#ifndef LEFTBLOCK_H
+#ifndef LEFTBLOCK_H
 #define LEFTBLOCK_H
 
 #include "../../common/etlbase.h"
@@ -13,6 +13,7 @@ public:
     virtual void Exec();
 private:
     MSViewModel* m_pVM;
+    
     PosParameter m_lparam;
 
 };

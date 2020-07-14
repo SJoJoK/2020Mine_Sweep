@@ -1,5 +1,6 @@
-﻿#ifndef MSVIEWMODEL_H
+#ifndef MSVIEWMODEL_H
 #define MSVIEWMODEL_H
+
 #include"../common/etlbase.h"
 #include"./sinks/msviewmodelsink.h"
 #include"../model/msdatamodel.h"
@@ -9,6 +10,7 @@
 #include"../common/parameter.h"
 #include"commands/resetblockcommand.h"
 #include"commands/rankaddcommand.h"
+
 
 class MSViewModel : public Proxy_CommandNotification<MSViewModel>, public Proxy_PropertyNotification<MSViewModel>
 {
@@ -21,7 +23,7 @@ public:
     std::shared_ptr<ICommandBase> get_leftblock_command() throw();
     std::shared_ptr<ICommandBase> get_rightblock_command() throw();
     std::shared_ptr<ICommandBase> get_resetblock_command() throw();
-    std::shared_ptr<ICommandBase> get_rankadd_command() throw();
+    std::shared_ptr<ICommandBase> get_rankadd_command() throw();//ranklist
     std::shared_ptr<Block> get_block();
     bool restart(int row, int col, int boom_num);
     bool leftblock(int x_pos, int y_pos);
@@ -35,7 +37,7 @@ private:
     std::shared_ptr<LeftBlockCommand> m_cmd_left;//ccx7.10
     std::shared_ptr<RightBlockCommand> m_cmd_right;//ccx7.11
     std::shared_ptr<ResetBlockCommand> m_cmd_resetblock;//ccx7.12
-    std::shared_ptr<RankAddCommand > m_cmd_rankadd;//ccx7.12
+    std::shared_ptr<RankAddCommand > m_cmd_rankadd;//ccx7.13
 
     std::shared_ptr<MSViewModelSink> m_sink;
 

@@ -1,4 +1,4 @@
-﻿#ifndef MSDATAMODEL_H
+#ifndef MSDATAMODEL_H
 #define MSDATAMODEL_H
 #include"../common/etlbase.h"
 #include"common/parameter.h"
@@ -18,7 +18,8 @@ public:
     bool leftblock(int x_pos, int y_pos);
     bool rightblock(int x_pos, int y_pos);
     bool resetblock(SETTING setting,int row, int col, int boom_num);
-    bool rankadd(UserParameter userinfo);
+    bool rankadd(UserParameter userinfo);//rank list
+    
 private:
     std::shared_ptr<Block> b;
 };

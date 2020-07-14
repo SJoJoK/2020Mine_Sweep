@@ -1,11 +1,11 @@
-﻿#include "msviewmodel.h"
+#include "msviewmodel.h"
 
 MSViewModel::MSViewModel() :
                                 m_cmd_restart(std::make_shared<RestartCommand>(this)),
                                 m_cmd_left(std::make_shared<LeftBlockCommand>(this)),
                                 m_cmd_right(std::make_shared<RightBlockCommand>(this)),
-                                m_cmd_resetblock(std::make_shared<ResetBlockCommand>(this)),
-                                m_cmd_rankadd(std::make_shared<RankAddCommand>(this)),
+                                m_cmd_resetblock(std::make_shared<ResetBlockCommand>(this)),//ccx
+                                m_cmd_rankadd(std::make_shared<RankAddCommand>(this)),//ccx 7.13
                                 m_sink(std::make_shared<MSViewModelSink>(this))
 {
 }
@@ -69,4 +69,4 @@ bool MSViewModel::resetblock(SETTING setting,int row, int col, int boom_num){
 }
 bool MSViewModel::rankadd(UserParameter userinfo){
     return m_MSModel->rankadd(userinfo);
-}
+}//ccx ranklist

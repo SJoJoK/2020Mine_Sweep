@@ -2,7 +2,6 @@
 #include "../msviewmodel.h"
 ResetBlockCommand::ResetBlockCommand(MSViewModel* p) throw(): m_pVM(p),m_param(JUNIOR,8,8,10)
 {
-
 }
 
 void ResetBlockCommand::SetParameter(const std::any& param)

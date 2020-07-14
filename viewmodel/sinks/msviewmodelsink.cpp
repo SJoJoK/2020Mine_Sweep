@@ -1,8 +1,7 @@
-﻿#include "msviewmodelsink.h"
+#include "msviewmodelsink.h"
 #include "../msviewmodel.h"
 MSViewModelSink::MSViewModelSink(MSViewModel* p) throw():m_pVM(p)
 {
-
 }
 
 void MSViewModelSink::OnPropertyChanged(const std::string &str)
@@ -23,7 +22,7 @@ void MSViewModelSink::OnPropertyChanged(const std::string &str)
     {
         m_pVM->Fire_OnPropertyChanged(str);
     }
-    //ccx 7.12
+    //ccx 7.13
     if(str == "addrank")
     {
         m_pVM->Fire_OnPropertyChanged(str);

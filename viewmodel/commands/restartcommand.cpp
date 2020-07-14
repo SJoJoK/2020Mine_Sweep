@@ -1,8 +1,7 @@
-﻿#include "restartcommand.h"
+#include "restartcommand.h"
 #include "../msviewmodel.h"
 RestartCommand::RestartCommand(MSViewModel* p) throw(): m_pVM(p),m_param(0,0,0)
 {
-
 }
 
 void RestartCommand::SetParameter(const std::any& param)
