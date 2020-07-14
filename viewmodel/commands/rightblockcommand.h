@@ -1,6 +1,5 @@
 #ifndef RIGHTBLOCKCOMMAND_H
 #define RIGHTBLOCKCOMMAND_H
-
 #include "../../common/etlbase.h"
 #include "common/parameter.h"
 class MSViewModel;

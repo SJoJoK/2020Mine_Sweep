@@ -15,6 +15,7 @@ private:
     MSViewModel* m_pVM;
 
     SettingParameter m_param;
+    
 };
 
 #endif // RESETBLOCKCOMMAND_H

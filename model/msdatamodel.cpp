@@ -1,4 +1,4 @@
-﻿#include "msdatamodel.h"
+#include "msdatamodel.h"
 
 MSDataModel::MSDataModel():b(std::make_shared<Block>(8,8,10))
 {
@@ -17,9 +17,6 @@ bool MSDataModel :: restart(int row, int col, int boom_num)
     return true;
 }
 bool MSDataModel::leftblock(int x_pos, int y_pos){
-    //change p[x_pos][y_pos].is_show
-    //b->p[x_pos][y_pos].set_show(1);
-
     //ccx 7.11
     //left->boom,lose
     if(b->p[x_pos][y_pos].get_boom()==1){
@@ -57,7 +54,6 @@ bool MSDataModel::rightblock(int x_pos, int y_pos){
             b->p[x_pos][y_pos].set_mark(0);
         }
         //ccx 7.12 change current flag number
-
 		qDebug() << b->p[x_pos][y_pos].show_info();
 		Fire_OnPropertyChanged("block");
     }
@@ -80,6 +76,7 @@ bool MSDataModel::rightblock(int x_pos, int y_pos){
     return true;
 }
 
+//ccx 7.13
 bool MSDataModel::resetblock(SETTING setting, int row, int col, int boom_num){
     if(setting == JUNIOR){
         b->re_construct(8,8,10);
@@ -100,6 +97,7 @@ bool MSDataModel::resetblock(SETTING setting, int row, int col, int boom_num){
     Fire_OnPropertyChanged("block");
 	return true;
 }
+
 //ccx 7.13
 bool MSDataModel::rankadd(UserParameter userinfo){
     //construct vector
@@ -180,6 +178,5 @@ bool MSDataModel::rankadd(UserParameter userinfo){
         }
         file2.close();//write finished
     }
-
     return 0;
 }

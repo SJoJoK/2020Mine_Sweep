@@ -1,4 +1,4 @@
-﻿#include "parameter.h"
+#include "parameter.h"
 
 BlockParameter::BlockParameter(int a, int b, int c)
 {
@@ -141,6 +141,7 @@ UserParameter& UserParameter::operator=(UserParameter&& src)
     }
     return *this;
 }
+//ccx 7.13 sort from small to large
 bool sort_stol(const UserParameter& U1, const UserParameter& U2){
     if(U1.time<U2.time){
         return 1;

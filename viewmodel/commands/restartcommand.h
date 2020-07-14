@@ -15,6 +15,7 @@ private:
     MSViewModel* m_pVM;
 
     BlockParameter m_param;
+    
 };
 
 

@@ -1,7 +1,9 @@
 #ifndef MSVIEWMODELSINK_H
 #define MSVIEWMODELSINK_H
 #include "../../common/etlbase.h"
+
 class MSViewModel;
+
 class MSViewModelSink : public IPropertyNotification
 {
 public:
