@@ -2,7 +2,6 @@
 #define BLOCK_H
 #include "./square.h"
 #include <QtMath>
-#include <QTime>
 #include <qdebug.h>
 #include "parameter.h"
 class Block
