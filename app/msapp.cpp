@@ -16,7 +16,6 @@ bool MSApp::Init(MainWindow& w)
     m_spViewModel = std::make_shared<MSViewModel>();
     m_spViewModel->set_model(spModel);
     //binding
-    w.m_pVM=m_spViewModel;
     // properties
     w.set_block(m_spViewModel->get_block());
     // commands

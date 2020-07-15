@@ -17,8 +17,9 @@
 #include"../common/etlbase.h"
 #include"sink/mainwindowcommandsink.h"
 #include"sink/mainwindowpropertysink.h"
-#include"../viewmodel/msviewmodel.h"
 #include"common/parameter.h"
+#include"common/block.h"
+#include"common/square.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -40,7 +41,6 @@ public:
     void set_block(const std:: shared_ptr<Block> b);
     std::shared_ptr<IPropertyNotification> get_propertty_sink() throw();
     std::shared_ptr<ICommandNotification> get_command_sink() throw();
-    std::shared_ptr<MSViewModel> m_pVM;
     void paint_restart_num();
     void paint_title(QPainter  * painter);
     void init();
