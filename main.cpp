@@ -8,6 +8,5 @@ int main(int argc, char *argv[])
     MainWindow w;
     MSApp app;
     app.Init(w);
-    //qDebug()<<QDir::currentPath();
     return a.exec();
 }

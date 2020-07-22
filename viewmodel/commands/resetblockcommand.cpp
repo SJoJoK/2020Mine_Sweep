@@ -1,4 +1,4 @@
-#include "resetblockcommand.h"
+﻿#include "resetblockcommand.h"
 #include "../msviewmodel.h"
 ResetBlockCommand::ResetBlockCommand(MSViewModel* p) throw(): m_pVM(p),m_param(JUNIOR,8,8,10)
 {
@@ -11,6 +11,5 @@ void ResetBlockCommand::SetParameter(const std::any& param)
 
 void ResetBlockCommand::Exec()
 {
-    bool b_result = m_pVM->resetblock(m_param.setting, m_param.row, m_param.col, m_param.boom_num);
-    m_pVM->Fire_OnCommandComplete("restart", b_result);
+    m_pVM->resetblock(m_param.setting, m_param.row, m_param.col, m_param.boom_num);
 }

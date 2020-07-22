@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_sink_property(std::make_shared<MainWindowPropertySink>(this))
-    , m_sink_command(std::make_shared<MainWindowCommandSink>(this))
+
 {
     ui->setupUi(this);
     connect(ui->actionJunior, SIGNAL(triggered(bool)), this, SLOT(set_junior()));
@@ -255,11 +255,6 @@ std::shared_ptr<IPropertyNotification> MainWindow::get_propertty_sink() throw()
     return std::static_pointer_cast<IPropertyNotification>(m_sink_property);
 }
 
-std::shared_ptr<ICommandNotification> MainWindow::get_command_sink() throw()
-{
-    return std::static_pointer_cast<ICommandNotification>(m_sink_command);
-}
-
 void MainWindow :: paintEvent(QPaintEvent * event)
 {
     QPainter painter(this);
@@ -435,7 +430,6 @@ void MainWindow :: paintEvent(QPaintEvent * event)
 void MainWindow :: paint_title(QPainter  * painter)
 {
     int LENGTH=B->get_col()*21;
-    int HEIGHT=B->get_row()*21+63;
     QPixmap mine_title(":img/image/mine_title.bmp");
     QPixmap qq_lose(":img/image/lose.bmp");
     QPixmap qq_pround(":img/image/proud.bmp");

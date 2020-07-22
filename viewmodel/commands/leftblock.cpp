@@ -1,4 +1,4 @@
-#include "leftblock.h"
+﻿#include "leftblock.h"
 #include "../msviewmodel.h"
 //ccx 7.10
 LeftBlockCommand::LeftBlockCommand(MSViewModel* p) throw(): m_pVM(p),m_lparam(3,3)
@@ -17,6 +17,5 @@ void LeftBlockCommand::Exec()
     i = m_lparam.i;
     j = m_lparam.j;
     qDebug()<<"postion is"<<i<<j;
-    bool b_result = m_pVM->leftblock(i,j);
-    m_pVM->Fire_OnCommandComplete("leftblockclk", b_result);
+    m_pVM->leftblock(i,j);
 }

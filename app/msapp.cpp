@@ -26,7 +26,6 @@ bool MSApp::Init(MainWindow& w)
     w.set_rank_command(m_spViewModel->get_rankadd_command());
     // notifications
     m_spViewModel->AddPropertyNotification(w.get_propertty_sink());
-    m_spViewModel->AddCommandNotification(w.get_command_sink());
     w.setWindowTitle("Mine Sweeping");
     w.init();
     w.show();

@@ -1,4 +1,4 @@
-#include "rightblockcommand.h"
+﻿#include "rightblockcommand.h"
 #include "../msviewmodel.h"
 //ccx 7.11
 RightBlockCommand::RightBlockCommand(MSViewModel* p) throw(): m_pVM(p),m_rparam(3,3)
@@ -19,6 +19,5 @@ void RightBlockCommand::Exec()
     i = m_rparam.i;
     j = m_rparam.j;
     qDebug()<<"postion is"<<i<<j;
-    bool b_result = m_pVM->rightblock(i,j);
-    m_pVM->Fire_OnCommandComplete("rightblockclk", b_result);
+    m_pVM->rightblock(i,j);
 }

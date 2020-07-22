@@ -1,4 +1,4 @@
-#include "msdatamodel.h"
+﻿#include "msdatamodel.h"
 
 MSDataModel::MSDataModel():b(std::make_shared<Block>(8,8,10))
 {
@@ -12,8 +12,7 @@ std::shared_ptr<Block> MSDataModel :: get_block() throw()
 bool MSDataModel :: restart(int row, int col, int boom_num)
 {
     b->re_construct(row, col, boom_num);
-    //qDebug()<<b->get_row()<<b->get_col()<<b->get_boom_num();
-    //Fire_OnPropertyChanged("restart_num");
+    Fire_OnPropertyChanged("restart_block");
     return true;
 }
 bool MSDataModel::leftblock(int x_pos, int y_pos){
@@ -94,7 +93,7 @@ bool MSDataModel::resetblock(SETTING setting, int row, int col, int boom_num){
         b->re_construct(row, col, boom_num);
         b->set_setting(CUSTOM);
     }
-    Fire_OnPropertyChanged("block");
+    Fire_OnPropertyChanged("restart_block");
 	return true;
 }
 

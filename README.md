@@ -41,16 +41,16 @@
 
 ## 开发工具与项目管理
 
-|   名称   |     工具      |
-| :------: | :-----------: |
-| 版本控制 |  Git, GitHub  |
-| 构建工具 | qmake/MSBuild |
-| 持续集成 |    Jenkins    |
-| 编程语言 |    C++ 17     |
-| 软件框架 |     MVVM      |
-| 交流协作 |     钉钉      |
-| 图形界面 |      Qt       |
-| 文档编辑 |   Markdown    |
+|   名称   |    工具     |
+| :------: | :---------: |
+| 版本控制 | Git, GitHub |
+| 构建工具 |  qmake+jom  |
+| 持续集成 |   Jenkins   |
+| 编程语言 |   C++ 17    |
+| 软件框架 |    MVVM     |
+| 交流协作 |    钉钉     |
+| 图形界面 |     Qt      |
+| 文档编辑 |  Markdown   |
 
 ## 开发计划与分工
 
@@ -75,12 +75,25 @@
 
 ## 构建方式
 
-qmake:
+首先使用qmake生成Makefile文件
 
-```cmake
+```bash
 qmake.exe Mine_sweeping.pro -spec win32-msvc "CONFIG+=qtquickcompiler"
 ```
 
+接着使用jom.exe即可，例：
+
+Release
+
+```bash
+F:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release
+```
+
+Debug
+
+```bash
+F:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug
+```
 
 ## 具体实现
 

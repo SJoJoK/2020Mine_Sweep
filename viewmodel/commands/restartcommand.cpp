@@ -1,4 +1,4 @@
-#include "restartcommand.h"
+﻿#include "restartcommand.h"
 #include "../msviewmodel.h"
 RestartCommand::RestartCommand(MSViewModel* p) throw(): m_pVM(p),m_param(0,0,0)
 {
@@ -15,6 +15,5 @@ void RestartCommand::Exec()
     row = m_param.row;
     col = m_param.col;
     boom_num = m_param.boom_num;
-    bool b_result = m_pVM->restart(row,col,boom_num);
-    m_pVM->Fire_OnCommandComplete("restart", b_result);
+    m_pVM->restart(row,col,boom_num);
 }

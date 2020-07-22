@@ -2,6 +2,9 @@
 #define BLOCK_H
 #include "./square.h"
 #include <QtMath>
+//We include QTime here to generate REAL RANDOM NUMBER
+#include <QTime>
+//
 #include <qdebug.h>
 #include "parameter.h"
 class Block

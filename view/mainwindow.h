@@ -11,11 +11,11 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QString>
+#include <QMessageBox>
 #include <fstream>
 #include <string>
 #include <iostream>
 #include"../common/etlbase.h"
-#include"sink/mainwindowcommandsink.h"
 #include"sink/mainwindowpropertysink.h"
 #include"common/parameter.h"
 #include"common/block.h"
@@ -40,7 +40,6 @@ public:
     void set_restart_num(const int num) throw();
     void set_block(const std:: shared_ptr<Block> b);
     std::shared_ptr<IPropertyNotification> get_propertty_sink() throw();
-    std::shared_ptr<ICommandNotification> get_command_sink() throw();
     void paint_restart_num();
     void paint_title(QPainter  * painter);
     void init();
@@ -60,7 +59,6 @@ private:
     std::shared_ptr<ICommandBase> m_cmd_setting;
     std::shared_ptr<ICommandBase> m_cmd_rank;
     std::shared_ptr<MainWindowPropertySink> m_sink_property;
-    std::shared_ptr<MainWindowCommandSink> m_sink_command;
     std::shared_ptr<Block> B;
 private slots:
     void set_junior();
